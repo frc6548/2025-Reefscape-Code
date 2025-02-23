@@ -9,6 +9,7 @@ public class LEDs extends SubsystemBase {
     private AddressableLED addressableLED;
     private AddressableLEDBuffer ledBuffer;
 
+    //Function for initializing the LEDs
     public void ConfigureLEDs() {
         addressableLED = new AddressableLED(0);
         ledBuffer = new AddressableLEDBuffer(60);
@@ -17,6 +18,7 @@ public class LEDs extends SubsystemBase {
         addressableLED.start();
     }
 
+    //Function for setting LED to solid color
     public void SetLEDBuffer(int r, int g, int b){
         for (var i = 0; i < ledBuffer.getLength(); i++) {
             ledBuffer.setRGB(i, r, g, b);
@@ -28,6 +30,7 @@ public class LEDs extends SubsystemBase {
         return (float) (maxValue - Math.abs((time % (maxValue * 2)) - maxValue));
     }
 
+    //Function for flashing LED at a set color
     public void FlashLed(){
         double ledStrength = Math.round(pingPong(Timer.getFPGATimestamp() * 8, 1)) * 255;
         SetLEDBuffer(0, (int)ledStrength, 0);

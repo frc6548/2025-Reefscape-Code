@@ -13,8 +13,6 @@ public class ElevatorPIDCommand extends Command {
 
     public ElevatorPIDCommand(Elevator elevatorSubsystem, double setpoint) {
         this.elevatorSubsystem = elevatorSubsystem;
-        // this.m_constraints = new TrapezoidProfile.Constraints(kMaxVelocity, kMaxAcceleration);
-        // this.pidController = new ProfiledPIDController(kP, kI, kD, m_constraints);
           this.pidController = new PIDController(kP, kI, kD);
         pidController.setSetpoint(setpoint);
         addRequirements(elevatorSubsystem);
@@ -23,14 +21,12 @@ public class ElevatorPIDCommand extends Command {
   @Override
   public void initialize() {
     System.out.println("ElevatorPIDCommand started!");
-    // pidController.reset();
     elevatorSubsystem.setElevatorMotor(0);
   }
 
   @Override
   public void execute() {
     double speed = pidController.calculate(elevatorSubsystem.getElevatorEncoder1());
-    //         + m_feedforward.calculate(pidController.getSetpoint().velocity));
     elevatorSubsystem.setElevatorMotor(speed);
   }
 

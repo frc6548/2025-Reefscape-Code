@@ -5,11 +5,13 @@
 package frc.robot;
 
 import static edu.wpi.first.units.Units.*;
-
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
@@ -33,21 +35,36 @@ public class RobotContainer {
 
     private final Telemetry logger = new Telemetry(MaxSpeed);
 
+    //Creates new xbox controller on port 0
     private final CommandXboxController joystick = new CommandXboxController(0);
 
+    //Create instances of our sybsystems 
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
     public final Intake intakeSubsystem = new Intake();
     public final Elevator elevatorSubsystem = new Elevator();
     public final LEDs ledSubsystem = new LEDs();
-
+    
+    //Creates instances of our Commands
     public final IntakeCommand intakeCommand = new IntakeCommand(intakeSubsystem, ledSubsystem);
 
-    public RobotContainer() {
+    //Creates instance of autochooser 
+    private SendableChooser<Command> autoChooser;
+
+    
+    public RobotContainer() { //Called only once when robot first turns on
+        //Sets default autonomous routine
+        autoChooser = AutoBuilder.buildAutoChooser("Right Coral");
+        //Puts the autonomous choser in Shuffleboard
+        SmartDashboard.putData("Auto Mode", autoChooser);
+        //Converts to commands that are useable only in Pathplanner
+        NamedCommands.registerCommand("elevatorUp", new ElevatorPIDCommand(elevatorSubsystem, 16));
+        NamedCommands.registerCommand("elevatorDown", new ElevatorPIDCommand(elevatorSubsystem, 2));
+        //Runs functions for one time robot configurations
         configureBindings();
         ledSubsystem.ConfigureLEDs();
     }
 
-    private void configureBindings() {
+    private void configureBindings() { //Binds Xbox controller bottons to Commands
         // Note that X is defined as forward according to WPILib convention,
         // and Y is defined as to the left according to WPILib convention.
         drivetrain.setDefaultCommand(
@@ -60,19 +77,20 @@ public class RobotContainer {
         );
 
         joystick.y().toggleOnTrue(intakeCommand);
-        joystick.rightBumper().whileTrue(new InstantCommand(() -> intakeSubsystem.setIntakeMotor(-1)));
+        joystick.rightBumper().whileTrue(new InstantCommand(() -> intakeSubsystem.setIntakeMotor(-1))); 
         joystick.rightBumper().whileFalse(new InstantCommand(() -> intakeSubsystem.setIntakeMotor(0)));
         joystick.povDown().onTrue(new ElevatorPIDCommand(elevatorSubsystem, 2));
-        joystick.povUp().onTrue(new ElevatorPIDCommand(elevatorSubsystem, 25)); //26
+        joystick.povUp().onTrue(new ElevatorPIDCommand(elevatorSubsystem, 25));
         joystick.povLeft().onTrue(new ElevatorPIDCommand(elevatorSubsystem, 4.5));
-        joystick.povRight().onTrue(new ElevatorPIDCommand(elevatorSubsystem, 16)); //26
+        joystick.povRight().onTrue(new ElevatorPIDCommand(elevatorSubsystem, 16));
         joystick.leftTrigger().onTrue(new IntakePivotPIDCommand(intakeSubsystem, 14));
         joystick.rightTrigger().onTrue(new IntakePivotPIDCommand(intakeSubsystem, 2));
 
+        //Our SysID Tests, not used yet
         joystick.start().whileTrue(new InstantCommand(() -> drivetrain.m_sysIdRoutineSteer.dynamic(Direction.kForward)));
         joystick.back().whileTrue(new InstantCommand(() -> drivetrain.m_sysIdRoutineRotation.dynamic(Direction.kForward)));
 
-
+        // CTRE SysID Tests, not used yet TODO
         // Run SysId routines when holding back/start and X/Y.
         // Note that each routine should be run exactly once in a single log.
         // joystick.back().and(joystick.y()).whileTrue(drivetrain.sysIdDynamic(Direction.kForward));
@@ -87,6 +105,7 @@ public class RobotContainer {
     }
 
     public Command getAutonomousCommand() {
-        return Commands.print("No autonomous command configured");
+        /* Run the path selected from the auto chooser */
+        return autoChooser.getSelected();
     }
 }
