@@ -1,19 +1,23 @@
 package frc.robot.commands;
 
+import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Intake;
 
 public class IntakePivotPIDCommand extends Command {
     private Intake IntakeSubsystem;
     private final PIDController pidController;
-    private static double kP = 0.02; //.6
+    private final ArmFeedforward feedforward;
+    private static double kP = 0.055; //.6
     private static double kI = 0.0;
     private static double kD = 0.0;
 
     public IntakePivotPIDCommand(Intake IntakeSubsystem, double setpoint) {      
       this.IntakeSubsystem = IntakeSubsystem;
       this.pidController = new PIDController(kP, kI, kD);
+      this.feedforward = new ArmFeedforward(0,0.5,0);
       pidController.setSetpoint(setpoint);
       addRequirements(IntakeSubsystem);
     }

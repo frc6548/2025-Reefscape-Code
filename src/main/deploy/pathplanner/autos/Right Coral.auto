@@ -5,45 +5,136 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Right Coral 1"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Right Coral 1"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "elevatorUp"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Right Coral 2"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Right Coral 2"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "elevatorDown"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Right Coral 3"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Right Coral 3"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "elevatorUp"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Right Coral 4"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Right Coral 4"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "elevatorDown"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Right Coral 5"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Right Coral 5"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "elevatorUp"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Right Coral 6"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Right Coral 6"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "elevatorDown"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Right Coral 7"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Right Coral 7"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "elevatorUp"
+                }
+              }
+            ]
           }
         }
       ]

@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Elevator;
@@ -7,15 +8,23 @@ import frc.robot.subsystems.Elevator;
 public class ElevatorPIDCommand extends Command {
     private Elevator elevatorSubsystem;
     private final PIDController pidController;
-    private static double kP = 0.06;
+    private final ElevatorFeedforward feedforward;
+    private static double kP = 0.068; //.068
     private static double kI = 0.0;
-    private static double kD = 0.0;
+    private static double kD = 0.00; //.005
+
+    private static double kS = 0.0;
+    private static double kG = 0.075; //.07
+    private static double kV = 0.0;
+    private static double kA = 0.0;
 
     public ElevatorPIDCommand(Elevator elevatorSubsystem, double setpoint) {
         this.elevatorSubsystem = elevatorSubsystem;
-          this.pidController = new PIDController(kP, kI, kD);
+        this.pidController = new PIDController(kP, kI, kD);
+        this.feedforward = new ElevatorFeedforward(kS, kG, kV, kA);
         pidController.setSetpoint(setpoint);
         addRequirements(elevatorSubsystem);
+        
       }
 
   @Override
@@ -26,7 +35,8 @@ public class ElevatorPIDCommand extends Command {
 
   @Override
   public void execute() {
-    double speed = pidController.calculate(elevatorSubsystem.getElevatorEncoder1());
+    double speed = pidController.calculate(elevatorSubsystem.getElevatorEncoder1()) + 
+    feedforward.calculate(pidController.getSetpoint());
     elevatorSubsystem.setElevatorMotor(speed);
   }
 
@@ -36,8 +46,5 @@ public class ElevatorPIDCommand extends Command {
     System.out.println("ElevatorPIDCommand ended!");
   }
 
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
+
 }

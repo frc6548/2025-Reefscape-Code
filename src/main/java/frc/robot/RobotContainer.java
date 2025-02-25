@@ -18,7 +18,9 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.commands.ElevatorPIDCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.IntakePivotPIDCommand;
+import frc.robot.commands.OuttakeCommand;
 import frc.robot.generated.TunerConstants;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
@@ -43,7 +45,7 @@ public class RobotContainer {
     public final Intake intakeSubsystem = new Intake();
     public final Elevator elevatorSubsystem = new Elevator();
     public final LEDs ledSubsystem = new LEDs();
-    
+    public final Climber ClimberSubsystem = new Climber();
     //Creates instances of our Commands
     public final IntakeCommand intakeCommand = new IntakeCommand(intakeSubsystem, ledSubsystem);
 
@@ -53,12 +55,17 @@ public class RobotContainer {
     
     public RobotContainer() { //Called only once when robot first turns on
         //Sets default autonomous routine
-        autoChooser = AutoBuilder.buildAutoChooser("Right Coral");
         //Puts the autonomous choser in Shuffleboard
-        SmartDashboard.putData("Auto Mode", autoChooser);
         //Converts to commands that are useable only in Pathplanner
-        NamedCommands.registerCommand("elevatorUp", new ElevatorPIDCommand(elevatorSubsystem, 16));
-        NamedCommands.registerCommand("elevatorDown", new ElevatorPIDCommand(elevatorSubsystem, 2));
+        // NamedCommands.registerCommand("elevatorUp", new AutonomousElevatorCommand(elevatorSubsystem, 27.9));
+        // NamedCommands.registerCommand("wristUp", new IntakePivotAutonomousCommand(intakeSubsystem, 13.5));
+        NamedCommands.registerCommand("outtake", new OuttakeCommand(intakeSubsystem, ledSubsystem, -5));
+        NamedCommands.registerCommand("intake", new IntakeCommand(intakeSubsystem, ledSubsystem));
+
+
+        // NamedCommands.registerCommand("elevatorDown", new AutonomousElevatorCommand(elevatorSubsystem, 2)); 
+        autoChooser = AutoBuilder.buildAutoChooser("Right Coral");
+        SmartDashboard.putData("Auto Mode", autoChooser);
         //Runs functions for one time robot configurations
         configureBindings();
         ledSubsystem.ConfigureLEDs();
@@ -77,14 +84,21 @@ public class RobotContainer {
         );
 
         joystick.y().toggleOnTrue(intakeCommand);
-        joystick.rightBumper().whileTrue(new InstantCommand(() -> intakeSubsystem.setIntakeMotor(-1))); 
-        joystick.rightBumper().whileFalse(new InstantCommand(() -> intakeSubsystem.setIntakeMotor(0)));
-        joystick.povDown().onTrue(new ElevatorPIDCommand(elevatorSubsystem, 2));
-        joystick.povUp().onTrue(new ElevatorPIDCommand(elevatorSubsystem, 25));
-        joystick.povLeft().onTrue(new ElevatorPIDCommand(elevatorSubsystem, 4.5));
-        joystick.povRight().onTrue(new ElevatorPIDCommand(elevatorSubsystem, 16));
-        joystick.leftTrigger().onTrue(new IntakePivotPIDCommand(intakeSubsystem, 14));
-        joystick.rightTrigger().onTrue(new IntakePivotPIDCommand(intakeSubsystem, 2));
+        joystick.y().onTrue(new ElevatorPIDCommand(elevatorSubsystem, 1.75));
+        joystick.y().onTrue(new IntakePivotPIDCommand(intakeSubsystem, .1));
+
+        joystick.rightBumper().onTrue(new OuttakeCommand(intakeSubsystem, ledSubsystem, -5));
+        // joystick.rightBumper().whileTrue(new InstantCommand(() -> intakeSubsystem.setIntakeMotor(-1))); 
+        // joystick.rightBumper().whileFalse(new InstantCommand(() -> intakeSubsystem.setIntakeMotor(0)));
+        joystick.povUp().onTrue(new ElevatorPIDCommand(elevatorSubsystem, 27.9)); //27.5
+        joystick.povUp().onTrue(new IntakePivotPIDCommand(intakeSubsystem, 13.5)); //16.33
+        joystick.povRight().onTrue(new ElevatorPIDCommand(elevatorSubsystem, 13.6));
+        joystick.povRight().onTrue(new IntakePivotPIDCommand(intakeSubsystem, 13.5)); 
+        joystick.povDown().onTrue(new ElevatorPIDCommand(elevatorSubsystem, 4.7));
+        joystick.povDown().onTrue(new IntakePivotPIDCommand(intakeSubsystem, 13.5)); 
+        joystick.povLeft().onTrue(new ElevatorPIDCommand(elevatorSubsystem, 0));
+        joystick.povRight().onTrue(new IntakePivotPIDCommand(intakeSubsystem, 13.5)); 
+        // joystick.x().whileTrue(new InstantCommand(() -> ClimberSubsystem.setClimberMotor(0)));
 
         //Our SysID Tests, not used yet
         joystick.start().whileTrue(new InstantCommand(() -> drivetrain.m_sysIdRoutineSteer.dynamic(Direction.kForward)));

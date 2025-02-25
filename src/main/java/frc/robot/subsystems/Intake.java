@@ -20,6 +20,7 @@ public class Intake extends SubsystemBase{
      public void periodic() {
         //Display sensor readings to ShuffleBoard
         SmartDashboard.putNumber("Intake Velocity", IntakeEncoder.getVelocity());
+        SmartDashboard.putNumber("Intake Encoder", IntakeEncoder.getPosition());
         SmartDashboard.putNumber("Pivot Velocity", PivotEncoder.getVelocity());
         SmartDashboard.putNumber("Pivot Encoder", PivotEncoder.getPosition());
         SmartDashboard.putBoolean("Photoelectric Sensor Status", Input.get());
@@ -37,6 +38,10 @@ public class Intake extends SubsystemBase{
       return PivotEncoder.getPosition();
     }
 
+    public double getIntakeEncoder() {
+      return IntakeEncoder.getPosition();
+    }
+
     //This is the status of our Photoelectric sensor
     public boolean getPEStatus(){
       return Input.get();
@@ -45,4 +50,8 @@ public class Intake extends SubsystemBase{
     public void resetPivotEncoder() {
       PivotEncoder.setPosition(0);
     }  
+
+    public void resetIntakeEncoder() {
+      IntakeEncoder.setPosition(0);
+    }
 }
