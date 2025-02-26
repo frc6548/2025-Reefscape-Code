@@ -9,6 +9,8 @@ import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+
+import edu.wpi.first.units.measure.LinearVelocity;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -57,8 +59,9 @@ public class RobotContainer {
         //Sets default autonomous routine
         //Puts the autonomous choser in Shuffleboard
         //Converts to commands that are useable only in Pathplanner
-        // NamedCommands.registerCommand("elevatorUp", new AutonomousElevatorCommand(elevatorSubsystem, 27.9));
-        // NamedCommands.registerCommand("wristUp", new IntakePivotAutonomousCommand(intakeSubsystem, 13.5));
+        NamedCommands.registerCommand("elevatorUp", elevatorSubsystem.setElevatorSetpoint(27.9));
+        NamedCommands.registerCommand("elevatorDown", elevatorSubsystem.setElevatorSetpoint(0));
+        NamedCommands.registerCommand("wristUp", new IntakePivotPIDCommand(intakeSubsystem, 13.5));
         NamedCommands.registerCommand("outtake", new OuttakeCommand(intakeSubsystem, ledSubsystem, -5));
         NamedCommands.registerCommand("intake", new IntakeCommand(intakeSubsystem, ledSubsystem));
 
@@ -83,21 +86,29 @@ public class RobotContainer {
             )
         );
 
+        elevatorSubsystem.setDefaultCommand(new ElevatorPIDCommand(elevatorSubsystem));
+
         joystick.y().toggleOnTrue(intakeCommand);
-        joystick.y().onTrue(new ElevatorPIDCommand(elevatorSubsystem, 1.75));
-        joystick.y().onTrue(new IntakePivotPIDCommand(intakeSubsystem, .1));
+        joystick.y().onTrue(elevatorSubsystem.setElevatorSetpoint(1.75));
+        joystick.y().onTrue(new IntakePivotPIDCommand(intakeSubsystem, -1));
+        joystick.y().onTrue(new InstantCommand(() -> drivetrain.speedfull()));
 
         joystick.rightBumper().onTrue(new OuttakeCommand(intakeSubsystem, ledSubsystem, -5));
+        
         // joystick.rightBumper().whileTrue(new InstantCommand(() -> intakeSubsystem.setIntakeMotor(-1))); 
         // joystick.rightBumper().whileFalse(new InstantCommand(() -> intakeSubsystem.setIntakeMotor(0)));
-        joystick.povUp().onTrue(new ElevatorPIDCommand(elevatorSubsystem, 27.9)); //27.5
+        joystick.povUp().onTrue(elevatorSubsystem.setElevatorSetpoint(27.9)); //27.5
         joystick.povUp().onTrue(new IntakePivotPIDCommand(intakeSubsystem, 13.5)); //16.33
-        joystick.povRight().onTrue(new ElevatorPIDCommand(elevatorSubsystem, 13.6));
+        joystick.povUp().onTrue(new InstantCommand(() -> SetDriveTrainSpeed(1)));
+        joystick.povRight().onTrue(elevatorSubsystem.setElevatorSetpoint(13.6));
         joystick.povRight().onTrue(new IntakePivotPIDCommand(intakeSubsystem, 13.5)); 
-        joystick.povDown().onTrue(new ElevatorPIDCommand(elevatorSubsystem, 4.7));
+        joystick.povRight().onTrue(new InstantCommand(() -> SetDriveTrainSpeed(6)));
+        joystick.povDown().onTrue(elevatorSubsystem.setElevatorSetpoint(4.7));
         joystick.povDown().onTrue(new IntakePivotPIDCommand(intakeSubsystem, 13.5)); 
-        joystick.povLeft().onTrue(new ElevatorPIDCommand(elevatorSubsystem, 0));
-        joystick.povRight().onTrue(new IntakePivotPIDCommand(intakeSubsystem, 13.5)); 
+        joystick.povDown().onTrue(new InstantCommand(() -> drivetrain.speedfull()));
+        joystick.povLeft().onTrue(elevatorSubsystem.setElevatorSetpoint(0));
+        // joystick.povUp().onTrue(new InstantCommand(() -> drivetrain.speedfull()));
+
         // joystick.x().whileTrue(new InstantCommand(() -> ClimberSubsystem.setClimberMotor(0)));
 
         //Our SysID Tests, not used yet
@@ -121,5 +132,10 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         /* Run the path selected from the auto chooser */
         return autoChooser.getSelected();
+    }
+
+    public void SetDriveTrainSpeed(double speed){
+        // LinearVelocity Linearvelocityunit = MetersPerSecond.of(speed);
+        MaxSpeed = speed;
     }
 }

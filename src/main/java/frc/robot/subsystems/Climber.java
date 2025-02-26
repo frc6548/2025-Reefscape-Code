@@ -6,7 +6,6 @@ import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-//TODO
 public class Climber extends SubsystemBase{
     private final SparkMax LeftClimberMotor = new SparkMax(16, MotorType.kBrushless); 
     private final SparkMax RightClimberMotor = new SparkMax(17, MotorType.kBrushless); 

@@ -74,7 +74,7 @@ public class TunerConstants {
 
     // Theoretical free speed (m/s) at 12 V applied output;
     // This needs to be tuned to your individual robot
-    public static final LinearVelocity kSpeedAt12Volts = MetersPerSecond.of(6);
+    public static LinearVelocity kSpeedAt12Volts = MetersPerSecond.of(6);
 
     // Every 1 rotation of the azimuth results in kCoupleRatio drive motor turns;
     // This may need to be tuned to your individual robot
@@ -100,7 +100,7 @@ public class TunerConstants {
             .withCANBusName(kCANBus.getName())
             .withPigeon2Id(kPigeonId)
             .withPigeon2Configs(pigeonConfigs);
-
+            
     private static final SwerveModuleConstantsFactory<TalonFXConfiguration, TalonFXConfiguration, CANcoderConfiguration> ConstantCreator =
         new SwerveModuleConstantsFactory<TalonFXConfiguration, TalonFXConfiguration, CANcoderConfiguration>()
             .withDriveMotorGearRatio(kDriveGearRatio)
@@ -281,6 +281,16 @@ public class TunerConstants {
                 drivetrainConstants, odometryUpdateFrequency,
                 odometryStandardDeviation, visionStandardDeviation, modules
             );
+        }
+        
+        public void speedlow(){
+            //kSpeedAt12Volts = MetersPerSecond.of(.01);
+            ConstantCreator.SpeedAt12Volts = .01d;
+        }
+        public void speedfull(){
+            //kSpeedAt12Volts = MetersPerSecond.of(6);
+            //ConstantCreator.withSpeedAt12Volts(kSpeedAt12Volts);
+            ConstantCreator.SpeedAt12Volts = 6d;
         }
     }
 }

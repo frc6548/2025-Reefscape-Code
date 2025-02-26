@@ -27,7 +27,7 @@ public class IntakeCommand extends Command {
             ledSubsystem.FlashLed();
             
         } else {
-            IntakeSubsystem.setIntakeMotor(.4);
+            IntakeSubsystem.setIntakeMotor(.6);
             ledSubsystem.SetLEDBuffer(255, 0, 0);
         }
     }

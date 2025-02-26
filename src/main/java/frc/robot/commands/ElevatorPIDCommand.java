@@ -12,17 +12,17 @@ public class ElevatorPIDCommand extends Command {
     private static double kP = 0.068; //.068
     private static double kI = 0.0;
     private static double kD = 0.00; //.005
-
     private static double kS = 0.0;
     private static double kG = 0.075; //.07
     private static double kV = 0.0;
     private static double kA = 0.0;
+    private double tolerance = 1;
 
-    public ElevatorPIDCommand(Elevator elevatorSubsystem, double setpoint) {
+    public ElevatorPIDCommand(Elevator elevatorSubsystem) {
         this.elevatorSubsystem = elevatorSubsystem;
         this.pidController = new PIDController(kP, kI, kD);
         this.feedforward = new ElevatorFeedforward(kS, kG, kV, kA);
-        pidController.setSetpoint(setpoint);
+        // pidController.setSetpoint(setpoint);
         addRequirements(elevatorSubsystem);
         
       }
@@ -30,13 +30,17 @@ public class ElevatorPIDCommand extends Command {
   @Override
   public void initialize() {
     System.out.println("ElevatorPIDCommand started!");
-    elevatorSubsystem.setElevatorMotor(0);
+    elevatorSubsystem.setElevatorMotor(tolerance);
   }
 
   @Override
   public void execute() {
+    if (pidController.getSetpoint() != elevatorSubsystem.targetSetpoint)
+      pidController.setSetpoint(elevatorSubsystem.targetSetpoint);
+
     double speed = pidController.calculate(elevatorSubsystem.getElevatorEncoder1()) + 
-    feedforward.calculate(pidController.getSetpoint());
+      feedforward.calculate(pidController.getSetpoint());
+    
     elevatorSubsystem.setElevatorMotor(speed);
   }
 
