@@ -13,39 +13,42 @@ public class IntakePivotPIDCommand extends Command {
     private static double kI = 0.0;
     private static double kD = 0.0;
     private static double kS = 0.0;
-    private static double kG = 0.0; //.07
+    private static double kG = 0.025; //.07
     private static double kV = 0.0;
+    private double tolerance = .5;
 
-    public IntakePivotPIDCommand(Intake IntakeSubsystem, double setpoint) {      
+
+    public IntakePivotPIDCommand(Intake IntakeSubsystem) {      
       this.IntakeSubsystem = IntakeSubsystem;
       this.pidController = new PIDController(kP, kI, kD);
       this.feedforward = new ArmFeedforward(kS, kG, kV);
-      pidController.setSetpoint(setpoint);
       addRequirements(IntakeSubsystem);
     }
 
   @Override
   public void initialize() {
     System.out.println("IntakePivotCommand started!");
-    pidController.reset();
-    IntakeSubsystem.setPivotMotor(0);
+    IntakeSubsystem.setPivotMotor(tolerance);
   }
 
   @Override
   public void execute() {
-    double speed = pidController.calculate(IntakeSubsystem.getPivotEncoder());
-    // + feedforward.calculate(pidController.getSetpoint());
+    if (pidController.getSetpoint() != IntakeSubsystem.targetSetpoint)
+    pidController.setSetpoint(IntakeSubsystem.targetSetpoint);
+
+    double speed = pidController.calculate(IntakeSubsystem.getPivotEncoder()) +
+    feedforward.calculate(0, pidController.getSetpoint());
     IntakeSubsystem.setPivotMotor(speed);
   }
 
   @Override
   public void end(boolean interrupted) {
-    IntakeSubsystem.setIntakeMotor(0);
+    IntakeSubsystem.setPivotMotor(0);
     System.out.println("IntakePivotCommand ended!");
   }
 
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
+  // @Override
+  // public boolean isFinished() {
+  //   return false;
+  // }
 }

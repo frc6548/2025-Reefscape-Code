@@ -80,7 +80,7 @@ public class TunerConstants {
     // This may need to be tuned to your individual robot
     private static final double kCoupleRatio = 3; //3.5714285714285716
 
-    private static final double kDriveGearRatio = 6.4; //6.122448979591837
+    private static final double kDriveGearRatio = 6.1; //6.122448979591837
     private static final double kSteerGearRatio = 31; //21.428571428571427
     private static final Distance kWheelRadius = Inches.of(2);
 
@@ -284,12 +284,9 @@ public class TunerConstants {
         }
         
         public void speedlow(){
-            //kSpeedAt12Volts = MetersPerSecond.of(.01);
             ConstantCreator.SpeedAt12Volts = .01d;
         }
         public void speedfull(){
-            //kSpeedAt12Volts = MetersPerSecond.of(6);
-            //ConstantCreator.withSpeedAt12Volts(kSpeedAt12Volts);
             ConstantCreator.SpeedAt12Volts = 6d;
         }
     }

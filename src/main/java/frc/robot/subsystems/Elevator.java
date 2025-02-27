@@ -15,11 +15,6 @@ public class Elevator extends SubsystemBase{
     public final RelativeEncoder ElevatorEncoder1 = FrontElevatorMotor.getEncoder();
     public final RelativeEncoder ElevatorEncoder2 = BackElevatorMotor.getEncoder();
     public double targetSetpoint;
-    public boolean atSetpoint;
-
-    public Elevator() {
-
-    }
 
     public Command setElevatorSetpoint(double setpoint) {
         return Commands.runOnce(() -> targetSetpoint = setpoint);

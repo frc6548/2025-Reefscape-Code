@@ -18,6 +18,11 @@ public class OuttakeCommand extends Command {
         addRequirements(ledSubsystem);
     }
 
+         public boolean isAtPosition() {
+        double error = IntakeSubsystem.getIntakeEncoder() - pidController.getSetpoint();
+        return (Math.abs(error) < .4);
+      }
+
     @Override
     public void initialize() {
         IntakeSubsystem.resetIntakeEncoder();
@@ -30,8 +35,6 @@ public class OuttakeCommand extends Command {
     public void execute() {
         double speed = pidController.calculate(IntakeSubsystem.getIntakeEncoder());
         IntakeSubsystem.setIntakeMotor(speed);
-
-
     }
     
     @Override
@@ -43,6 +46,6 @@ public class OuttakeCommand extends Command {
 
     @Override
     public boolean isFinished() {
-        return false;
+        return isAtPosition(); 
     }
 }

@@ -21,7 +21,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 2.1
+                        "waitTime": 1.9
                       }
                     },
                     {
@@ -34,6 +34,12 @@
                       "type": "named",
                       "data": {
                         "name": "wristUp"
+                      }
+                    },
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.9
                       }
                     },
                     {
@@ -59,9 +65,28 @@
                 }
               },
               {
-                "type": "named",
+                "type": "sequential",
                 "data": {
-                  "name": "elevatorDown"
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "elevatorintake"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "wristintake"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "intake"
+                      }
+                    }
+                  ]
                 }
               }
             ]
@@ -84,13 +109,31 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 2.1
+                        "waitTime": 1.9
                       }
                     },
                     {
                       "type": "named",
                       "data": {
                         "name": "elevatorUp"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "wristUp"
+                      }
+                    },
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.9
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "outtake"
                       }
                     }
                   ]
@@ -112,7 +155,19 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "elevatorDown"
+                  "name": "elevatorintake"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "wristintake"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "intake"
                 }
               }
             ]
@@ -135,13 +190,31 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 2.0
+                        "waitTime": 1.8
                       }
                     },
                     {
                       "type": "named",
                       "data": {
                         "name": "elevatorUp"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "wristUp"
+                      }
+                    },
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.9
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "outtake"
                       }
                     }
                   ]
@@ -161,9 +234,28 @@
                 }
               },
               {
-                "type": "named",
+                "type": "sequential",
                 "data": {
-                  "name": "elevatorDown"
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "elevatorintake"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "wristintake"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "intake"
+                      }
+                    }
+                  ]
                 }
               }
             ]
@@ -186,13 +278,31 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 2.1
+                        "waitTime": 1.8
                       }
                     },
                     {
                       "type": "named",
                       "data": {
                         "name": "elevatorUp"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "wristUp"
+                      }
+                    },
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.9
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "outtake"
                       }
                     }
                   ]

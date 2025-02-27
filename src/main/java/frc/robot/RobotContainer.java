@@ -9,8 +9,6 @@ import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
-
-import edu.wpi.first.units.measure.LinearVelocity;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -61,10 +59,11 @@ public class RobotContainer {
         //Converts to commands that are useable only in Pathplanner
         NamedCommands.registerCommand("elevatorUp", elevatorSubsystem.setElevatorSetpoint(27.9));
         NamedCommands.registerCommand("elevatorDown", elevatorSubsystem.setElevatorSetpoint(0));
-        NamedCommands.registerCommand("wristUp", new IntakePivotPIDCommand(intakeSubsystem, 13.5));
+        NamedCommands.registerCommand("wristUp", intakeSubsystem.setPivotSetpoint(12.4));
         NamedCommands.registerCommand("outtake", new OuttakeCommand(intakeSubsystem, ledSubsystem, -5));
         NamedCommands.registerCommand("intake", new IntakeCommand(intakeSubsystem, ledSubsystem));
-
+        NamedCommands.registerCommand("elevatorintake", elevatorSubsystem.setElevatorSetpoint(1.75));
+        NamedCommands.registerCommand("wristintake", intakeSubsystem.setPivotSetpoint(-.5));
 
         // NamedCommands.registerCommand("elevatorDown", new AutonomousElevatorCommand(elevatorSubsystem, 2)); 
         autoChooser = AutoBuilder.buildAutoChooser("Right Coral");
@@ -87,41 +86,38 @@ public class RobotContainer {
         );
 
         elevatorSubsystem.setDefaultCommand(new ElevatorPIDCommand(elevatorSubsystem));
+        intakeSubsystem.setDefaultCommand(new IntakePivotPIDCommand(intakeSubsystem));
 
         joystick.y().toggleOnTrue(intakeCommand);
         joystick.y().onTrue(elevatorSubsystem.setElevatorSetpoint(1.75));
-        joystick.y().onTrue(new IntakePivotPIDCommand(intakeSubsystem, -1));
-        joystick.y().onTrue(new InstantCommand(() -> drivetrain.speedfull()));
+        joystick.y().onTrue(intakeSubsystem.setPivotSetpoint(-.5));
+        joystick.y().onTrue(new InstantCommand(() -> SetDriveTrainSpeed(6)));
 
         joystick.rightBumper().onTrue(new OuttakeCommand(intakeSubsystem, ledSubsystem, -5));
         
         // joystick.rightBumper().whileTrue(new InstantCommand(() -> intakeSubsystem.setIntakeMotor(-1))); 
         // joystick.rightBumper().whileFalse(new InstantCommand(() -> intakeSubsystem.setIntakeMotor(0)));
-        joystick.povUp().onTrue(elevatorSubsystem.setElevatorSetpoint(27.9)); //27.5
-        joystick.povUp().onTrue(new IntakePivotPIDCommand(intakeSubsystem, 13.5)); //16.33
+        joystick.povUp().onTrue(elevatorSubsystem.setElevatorSetpoint(28.35)); //27.5
+        joystick.povUp().onTrue(intakeSubsystem.setPivotSetpoint(13.2));
         joystick.povUp().onTrue(new InstantCommand(() -> SetDriveTrainSpeed(1)));
         joystick.povRight().onTrue(elevatorSubsystem.setElevatorSetpoint(13.6));
-        joystick.povRight().onTrue(new IntakePivotPIDCommand(intakeSubsystem, 13.5)); 
-        joystick.povRight().onTrue(new InstantCommand(() -> SetDriveTrainSpeed(6)));
+        joystick.povRight().onTrue(intakeSubsystem.setPivotSetpoint(13.2)); 
+        joystick.povRight().onTrue(new InstantCommand(() -> SetDriveTrainSpeed(2.3)));
         joystick.povDown().onTrue(elevatorSubsystem.setElevatorSetpoint(4.7));
-        joystick.povDown().onTrue(new IntakePivotPIDCommand(intakeSubsystem, 13.5)); 
-        joystick.povDown().onTrue(new InstantCommand(() -> drivetrain.speedfull()));
-        joystick.povLeft().onTrue(elevatorSubsystem.setElevatorSetpoint(0));
+        joystick.povDown().onTrue(intakeSubsystem.setPivotSetpoint(13.2)); 
+        joystick.povDown().onTrue(new InstantCommand(() -> SetDriveTrainSpeed(6)));
+        // joystick.povLeft().onTrue(elevatorSubsystem.setElevatorSetpoint(0));
         // joystick.povUp().onTrue(new InstantCommand(() -> drivetrain.speedfull()));
 
         // joystick.x().whileTrue(new InstantCommand(() -> ClimberSubsystem.setClimberMotor(0)));
 
-        //Our SysID Tests, not used yet
-        joystick.start().whileTrue(new InstantCommand(() -> drivetrain.m_sysIdRoutineSteer.dynamic(Direction.kForward)));
-        joystick.back().whileTrue(new InstantCommand(() -> drivetrain.m_sysIdRoutineRotation.dynamic(Direction.kForward)));
-
         // CTRE SysID Tests, not used yet TODO
         // Run SysId routines when holding back/start and X/Y.
         // Note that each routine should be run exactly once in a single log.
-        // joystick.back().and(joystick.y()).whileTrue(drivetrain.sysIdDynamic(Direction.kForward));
-        // joystick.back().and(joystick.x()).whileTrue(drivetrain.sysIdDynamic(Direction.kReverse));
-        // joystick.start().and(joystick.y()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
-        // joystick.start().and(joystick.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
+        joystick.back().and(joystick.y()).whileTrue(drivetrain.sysIdDynamic(Direction.kForward));
+        joystick.back().and(joystick.x()).whileTrue(drivetrain.sysIdDynamic(Direction.kReverse));
+        joystick.start().and(joystick.y()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
+        joystick.start().and(joystick.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
 
         // reset the field-centric heading on left bumper press
         joystick.leftBumper().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric()));

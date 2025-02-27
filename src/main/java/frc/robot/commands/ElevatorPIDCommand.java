@@ -22,9 +22,7 @@ public class ElevatorPIDCommand extends Command {
         this.elevatorSubsystem = elevatorSubsystem;
         this.pidController = new PIDController(kP, kI, kD);
         this.feedforward = new ElevatorFeedforward(kS, kG, kV, kA);
-        // pidController.setSetpoint(setpoint);
         addRequirements(elevatorSubsystem);
-        
       }
 
   @Override
@@ -39,8 +37,7 @@ public class ElevatorPIDCommand extends Command {
       pidController.setSetpoint(elevatorSubsystem.targetSetpoint);
 
     double speed = pidController.calculate(elevatorSubsystem.getElevatorEncoder1()) + 
-      feedforward.calculate(pidController.getSetpoint());
-    
+    feedforward.calculate(pidController.getSetpoint());
     elevatorSubsystem.setElevatorMotor(speed);
   }
 
