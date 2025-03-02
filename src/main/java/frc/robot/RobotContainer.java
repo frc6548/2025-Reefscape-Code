@@ -59,8 +59,8 @@ public class RobotContainer {
         //Converts to commands that are useable only in Pathplanner
         NamedCommands.registerCommand("elevatorUp", elevatorSubsystem.setElevatorSetpoint(27.9));
         NamedCommands.registerCommand("elevatorDown", elevatorSubsystem.setElevatorSetpoint(0));
-        NamedCommands.registerCommand("wristUp", intakeSubsystem.setPivotSetpoint(12.4));
-        NamedCommands.registerCommand("outtake", new OuttakeCommand(intakeSubsystem, ledSubsystem, -5));
+        NamedCommands.registerCommand("wristUp", intakeSubsystem.setPivotSetpoint(12.5));
+        NamedCommands.registerCommand("outtake", new OuttakeCommand(intakeSubsystem, ledSubsystem, -11));
         NamedCommands.registerCommand("intake", new IntakeCommand(intakeSubsystem, ledSubsystem));
         NamedCommands.registerCommand("elevatorintake", elevatorSubsystem.setElevatorSetpoint(1.75));
         NamedCommands.registerCommand("wristintake", intakeSubsystem.setPivotSetpoint(-.5));
@@ -87,37 +87,37 @@ public class RobotContainer {
 
         elevatorSubsystem.setDefaultCommand(new ElevatorPIDCommand(elevatorSubsystem));
         intakeSubsystem.setDefaultCommand(new IntakePivotPIDCommand(intakeSubsystem));
-
+        //INTAKE
         joystick.y().toggleOnTrue(intakeCommand);
         joystick.y().onTrue(elevatorSubsystem.setElevatorSetpoint(1.75));
         joystick.y().onTrue(intakeSubsystem.setPivotSetpoint(-.5));
         joystick.y().onTrue(new InstantCommand(() -> SetDriveTrainSpeed(6)));
-
-        joystick.rightBumper().onTrue(new OuttakeCommand(intakeSubsystem, ledSubsystem, -5));
-        
-        // joystick.rightBumper().whileTrue(new InstantCommand(() -> intakeSubsystem.setIntakeMotor(-1))); 
-        // joystick.rightBumper().whileFalse(new InstantCommand(() -> intakeSubsystem.setIntakeMotor(0)));
+        //OUTTAKE
+        joystick.rightBumper().onTrue(new OuttakeCommand(intakeSubsystem, ledSubsystem, -11));
+        //L4
         joystick.povUp().onTrue(elevatorSubsystem.setElevatorSetpoint(28.35)); //27.5
-        joystick.povUp().onTrue(intakeSubsystem.setPivotSetpoint(13.2));
+        joystick.povUp().onTrue(intakeSubsystem.setPivotSetpoint(12.5));
         joystick.povUp().onTrue(new InstantCommand(() -> SetDriveTrainSpeed(1)));
+        //L3
         joystick.povRight().onTrue(elevatorSubsystem.setElevatorSetpoint(13.6));
-        joystick.povRight().onTrue(intakeSubsystem.setPivotSetpoint(13.2)); 
+        joystick.povRight().onTrue(intakeSubsystem.setPivotSetpoint(12.5)); 
         joystick.povRight().onTrue(new InstantCommand(() -> SetDriveTrainSpeed(2.3)));
+        //L2
         joystick.povDown().onTrue(elevatorSubsystem.setElevatorSetpoint(4.7));
-        joystick.povDown().onTrue(intakeSubsystem.setPivotSetpoint(13.2)); 
+        joystick.povDown().onTrue(intakeSubsystem.setPivotSetpoint(12.5)); 
         joystick.povDown().onTrue(new InstantCommand(() -> SetDriveTrainSpeed(6)));
-        // joystick.povLeft().onTrue(elevatorSubsystem.setElevatorSetpoint(0));
-        // joystick.povUp().onTrue(new InstantCommand(() -> drivetrain.speedfull()));
 
+        //TODO CLIMB + DEALGIFY + APRILTAGS
         // joystick.x().whileTrue(new InstantCommand(() -> ClimberSubsystem.setClimberMotor(0)));
 
-        // CTRE SysID Tests, not used yet TODO
+        // CTRE SysID Tests, not used yet 
         // Run SysId routines when holding back/start and X/Y.
         // Note that each routine should be run exactly once in a single log.
         joystick.back().and(joystick.y()).whileTrue(drivetrain.sysIdDynamic(Direction.kForward));
         joystick.back().and(joystick.x()).whileTrue(drivetrain.sysIdDynamic(Direction.kReverse));
         joystick.start().and(joystick.y()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
         joystick.start().and(joystick.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
+        //KS = 0.051356, KV = 0.11241, KA = 0.012258
 
         // reset the field-centric heading on left bumper press
         joystick.leftBumper().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric()));
@@ -131,7 +131,7 @@ public class RobotContainer {
     }
 
     public void SetDriveTrainSpeed(double speed){
-        // LinearVelocity Linearvelocityunit = MetersPerSecond.of(speed);
         MaxSpeed = speed;
+        drive.withDeadband(MaxSpeed * 0.1); // Update the deadband based on the new MaxSpeed
     }
 }

@@ -21,19 +21,25 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 1.9
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "elevatorUp"
+                        "waitTime": 0.5
                       }
                     },
                     {
                       "type": "named",
                       "data": {
                         "name": "wristUp"
+                      }
+                    },
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 2.0
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "elevatorUp"
                       }
                     },
                     {
@@ -46,6 +52,12 @@
                       "type": "named",
                       "data": {
                         "name": "outtake"
+                      }
+                    },
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 10000.0
                       }
                     }
                   ]
