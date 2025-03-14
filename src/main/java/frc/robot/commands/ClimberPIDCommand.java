@@ -9,11 +9,11 @@ public class ClimberPIDCommand extends Command {
     private Climber climberSubsystem;
     private final PIDController pidController;
     private final ArmFeedforward feedforward;
-    private static double kP = 0.03;
+    private static double kP = 0.07;
     private static double kI = 0.0;
     private static double kD = 0.0;
     private static double kS = 0.0;
-    private static double kG = 0.0; 
+    private static double kG = 0.01; 
     private static double kV = 0.0;
     private double tolerance = .5;
 

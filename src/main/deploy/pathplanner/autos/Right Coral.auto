@@ -9,12 +9,6 @@
           "data": {
             "commands": [
               {
-                "type": "named",
-                "data": {
-                  "name": "climberDown"
-                }
-              },
-              {
                 "type": "path",
                 "data": {
                   "pathName": "Right Coral 1"
@@ -33,7 +27,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "wristUp"
+                        "name": "wristUp1"
                       }
                     },
                     {
@@ -45,7 +39,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "elevatorUp"
+                        "name": "elevatorUp1"
                       }
                     },
                     {
@@ -57,7 +51,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "outtake"
+                        "name": "outtake1"
                       }
                     }
                   ]
@@ -89,7 +83,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "wristIntake"
+                        "name": "wristintake1"
                       }
                     }
                   ]
@@ -98,13 +92,13 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "elevatorIntake"
+                  "name": "elevatorIntake1"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "intake"
+                  "name": "intake1"
                 }
               }
             ]
@@ -133,7 +127,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "wristUp"
+                        "name": "wristUp1"
                       }
                     },
                     {
@@ -145,7 +139,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "elevatorUp"
+                        "name": "elevatorUp1"
                       }
                     },
                     {
@@ -157,7 +151,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "outtake"
+                        "name": "outtake1"
                       }
                     }
                   ]
@@ -189,7 +183,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "wristIntake"
+                        "name": "wristintake1"
                       }
                     }
                   ]
@@ -198,13 +192,13 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "elevatorIntake"
+                  "name": "elevatorIntake1"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "intake"
+                  "name": "intake1"
                 }
               }
             ]
@@ -233,7 +227,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "wristUp"
+                        "name": "wristUp1"
                       }
                     },
                     {
@@ -245,7 +239,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "elevatorUp"
+                        "name": "elevatorUp1"
                       }
                     },
                     {
@@ -257,7 +251,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "outtake"
+                        "name": "outtake1"
                       }
                     }
                   ]
@@ -289,7 +283,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "wristIntake"
+                        "name": "wristIntake1"
                       }
                     }
                   ]
@@ -298,13 +292,69 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "elevatorIntake"
+                  "name": "elevatorIntake1"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "intake"
+                  "name": "intake1"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Right Coral 7"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.5
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "wristUp1"
+                      }
+                    },
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 1.0
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "elevatorUp1"
+                      }
+                    },
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.9
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "outtake1"
+                      }
+                    }
+                  ]
                 }
               }
             ]

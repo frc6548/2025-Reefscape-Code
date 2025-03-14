@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.98,
-        "y": 2.8
+        "x": 3.9810365687566986,
+        "y": 2.80421181747785
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.4756394474901846,
-        "y": 2.3112475304361797
+        "x": 4.528554755105511,
+        "y": 3.296354850031872
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "End Coral 3-R"
     },
     {
       "anchor": {
-        "x": 1.6,
-        "y": 0.7
+        "x": 1.632,
+        "y": 0.6759935897435889
       },
       "prevControl": {
-        "x": 2.579988159207651,
-        "y": 1.636818668317762
+        "x": 1.3528929360693804,
+        "y": 0.4235164266393141
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Right Human Player"
     }
   ],
   "rotationTargets": [],
@@ -33,8 +33,8 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 1.0,
+    "maxAcceleration": 1.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 54.0
+    "rotation": 53.5
   },
   "reversed": false,
   "folder": "Right Coral",

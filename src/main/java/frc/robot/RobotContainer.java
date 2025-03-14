@@ -14,14 +14,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.commands.ClimberPIDCommand;
 import frc.robot.commands.ElevatorPIDCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.IntakeCommandV2;
 import frc.robot.commands.IntakePivotPIDCommand;
 import frc.robot.commands.OuttakeCommand;
 import frc.robot.generated.TunerConstants;
-import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
@@ -46,7 +44,6 @@ public class RobotContainer {
     public final Intake intakeSubsystem = new Intake();
     public final Elevator elevatorSubsystem = new Elevator();
     public final LEDs ledSubsystem = new LEDs();
-    public final Climber climberSubsystem = new Climber();
     //Creates instances of our Commands
     public final IntakeCommand intakeCommand = new IntakeCommand(intakeSubsystem, ledSubsystem);
     public final IntakeCommandV2 intakeCommandV2 = new IntakeCommandV2(intakeSubsystem, ledSubsystem);
@@ -66,7 +63,6 @@ public class RobotContainer {
         NamedCommands.registerCommand("intake", new IntakeCommand(intakeSubsystem, ledSubsystem));
         NamedCommands.registerCommand("elevatorIntake", elevatorSubsystem.setElevatorSetpoint(1.75+1.285715222358704));
         NamedCommands.registerCommand("wristIntake", intakeSubsystem.setPivotSetpoint(-.5-16.35712432861328));
-        NamedCommands.registerCommand("climberDown", climberSubsystem.setClimberSetpoint(8));
 
         // NamedCommands.registerCommand("elevatorDown", new AutonomousElevatorCommand(elevatorSubsystem, 2)); 
         autoChooser = AutoBuilder.buildAutoChooser("Right Coral");
@@ -91,8 +87,6 @@ public class RobotContainer {
         //SET DEFAULT COMMANDS
         elevatorSubsystem.setDefaultCommand(new ElevatorPIDCommand(elevatorSubsystem));
         intakeSubsystem.setDefaultCommand(new IntakePivotPIDCommand(intakeSubsystem));
-        climberSubsystem.setDefaultCommand(new ClimberPIDCommand(climberSubsystem));
-
         //INTAKE
         joystick.y().toggleOnTrue(intakeCommandV2);
         joystick.y().onTrue(elevatorSubsystem.setElevatorSetpoint(1.75+1.285715222358704));
@@ -127,16 +121,10 @@ public class RobotContainer {
         joystick.x().onTrue(intakeSubsystem.setPivotSetpoint(3-16.35712432861328));
         joystick.x().onTrue(new OuttakeCommand(intakeSubsystem, ledSubsystem, 30));
         joystick.x().onTrue(new InstantCommand(() -> SetDriveTrainSpeed(4.5)));
-        //CLIMB
-        joystick.b().onTrue(climberSubsystem.setClimberSetpoint(8));
-
-        //  joystick.back().and(joystick.rightTrigger()).whileTrue(new InstantCommand(() -> ClimberSubsystem.setClimberMotor(.25)));
-        //  joystick.back().and(joystick.rightTrigger()).whileFalse(new InstantCommand(() -> ClimberSubsystem.setClimberMotor(0)));
-        //  joystick.start().and(joystick.rightTrigger()).whileTrue(new InstantCommand(() -> ClimberSubsystem.setClimberMotor(-.25)));
-        //  joystick.start().and(joystick.rightTrigger()).whileFalse(new InstantCommand(() -> ClimberSubsystem.setClimberMotor(0)));
-        // joystick.start().and(joystick.leftTrigger()).onTrue(intakeSubsystem.setPivotSetpoint(16));
-
-
+        // //CLIMB
+        //  joystick.start().and(joystick.b()).onTrue(climberSubsystem.setClimberSetpoint(-85));
+        //  joystick.start().and(joystick.a()).whileTrue(new InstantCommand(() -> climberSubsystem.setPinMotor(-.1)));
+        //  joystick.start().and(joystick.a()).whileFalse(new InstantCommand(() -> climberSubsystem.setPinMotor(0)));
 
         // CTRE SysID Tests, not used yet 
         // Run SysId routines when holding back/start and X/Y.
