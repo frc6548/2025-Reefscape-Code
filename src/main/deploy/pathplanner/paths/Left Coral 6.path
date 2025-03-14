@@ -31,14 +31,7 @@
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [
-    {
-      "name": "elevatorDown",
-      "waypointRelativePos": 0.09890965732087083,
-      "endWaypointRelativePos": null,
-      "command": null
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
@@ -52,7 +45,7 @@
     "rotation": -53.440365275506686
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Left Coral",
   "idealStartingState": {
     "velocity": 0,
     "rotation": -59.83993916191291

@@ -46,6 +46,4 @@ public class ElevatorPIDCommand extends Command {
     elevatorSubsystem.setElevatorMotor(0);
     System.out.println("ElevatorPIDCommand ended!");
   }
-
-
 }

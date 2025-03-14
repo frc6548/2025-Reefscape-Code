@@ -17,7 +17,6 @@ public class IntakePivotPIDCommand extends Command {
     private static double kV = 0.0;
     private double tolerance = .5;
 
-
     public IntakePivotPIDCommand(Intake IntakeSubsystem) {      
       this.IntakeSubsystem = IntakeSubsystem;
       this.pidController = new PIDController(kP, kI, kD);
@@ -46,9 +45,4 @@ public class IntakePivotPIDCommand extends Command {
     IntakeSubsystem.setPivotMotor(0);
     System.out.println("IntakePivotCommand ended!");
   }
-
-  // @Override
-  // public boolean isFinished() {
-  //   return false;
-  // }
 }
