@@ -37,6 +37,7 @@ public class Elevator extends SubsystemBase{
     public Command setElevatorSetpoint(double setpoint) {
         return Commands.runOnce(() -> targetSetpoint = setpoint);
     }
+
     public void executePid() {
         if (pidController.getSetpoint() != targetSetpoint)
           pidController.setSetpoint(targetSetpoint);

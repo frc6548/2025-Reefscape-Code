@@ -5,11 +5,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Elevator;
 
 public class ElevatorPIDCommand extends Command {
-    
   private Elevator elevatorSubsystem;
   private double wantedSetpoint;//every "new elevatorPidCommand" thats created will be its own object with its own wanted setpoint (for each button and position you create)
-   
-  
+
   //this is ran once when command is created, in robotcontainer, bindingconfig only runs once at boot. 
   public ElevatorPIDCommand(Elevator elevatorSubsystem, double _wantedSetpoint) {
       wantedSetpoint =_wantedSetpoint;
@@ -37,7 +35,6 @@ public class ElevatorPIDCommand extends Command {
 
   @Override
   public void end(boolean interrupted) {
-    //elevatorSubsystem.setElevatorMotor(0); //Our pid controls our position and the power to motors. 
     if(interrupted)
     {
       System.out.println("ElevatorPIDCommand to position " + wantedSetpoint + "ended because another command was scheduled or this one was cancelled!");

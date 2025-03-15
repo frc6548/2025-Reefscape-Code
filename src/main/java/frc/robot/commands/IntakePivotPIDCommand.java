@@ -5,20 +5,21 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Intake;
 
 public class IntakePivotPIDCommand extends Command {
-    private Intake IntakeSubsystem;
+    private Intake intakeSubsystem;
     private double wantedSetpoint; //every "new IntakePidCommand" thats created will be its own object with its own wanted setpoint (for each button and position you create)
 
-    public IntakePivotPIDCommand(Intake IntakeSubsystem, double _wantedSetpoint) {  
+  //this is ran once when command is created, in robotcontainer, bindingconfig only runs once at boot. 
+    public IntakePivotPIDCommand(Intake intakeSubsystem, double _wantedSetpoint) {  
       wantedSetpoint =_wantedSetpoint;    
-      this.IntakeSubsystem = IntakeSubsystem;
-      addRequirements(IntakeSubsystem);
+      this.intakeSubsystem = intakeSubsystem;
+      addRequirements(intakeSubsystem);
     }
     
   //this is called every time the command is scheduled. 
   @Override
   public void initialize() {
     System.out.println("IntakePIDCommand to position " + wantedSetpoint + "Started!");
-    IntakeSubsystem.targetSetpoint = wantedSetpoint; //the intake subsystem controls the pid, its always running, this will just change the setpoint. 
+    intakeSubsystem.targetSetpoint = wantedSetpoint; //the intake subsystem controls the pid, its always running, this will just change the setpoint. 
   }
 
   @Override
@@ -28,7 +29,7 @@ public class IntakePivotPIDCommand extends Command {
 
   @Override
   public boolean isFinished() {
-      boolean isatPosition = MathUtil.isNear(wantedSetpoint, IntakeSubsystem.getPivotEncoder(), IntakeSubsystem.positionalTolerance);
+      boolean isatPosition = MathUtil.isNear(wantedSetpoint, intakeSubsystem.getPivotEncoder(), intakeSubsystem.positionalTolerance);
       return isatPosition; //will return true when we are at setpoint. which will then run the END command. 
   }
 

@@ -3,7 +3,6 @@ package frc.robot.subsystems;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
-
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -52,6 +51,7 @@ public class Intake extends SubsystemBase{
      @Override
      public void periodic() {
         //Display sensor readings to ShuffleBoard
+        executePid();
         SmartDashboard.putNumber("Intake Velocity", IntakeEncoder.getVelocity());
         SmartDashboard.putNumber("Intake Encoder", IntakeEncoder.getPosition());
         SmartDashboard.putNumber("Pivot Velocity", PivotEncoder.getVelocity());
