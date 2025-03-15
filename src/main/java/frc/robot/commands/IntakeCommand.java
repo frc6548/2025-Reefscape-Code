@@ -24,8 +24,7 @@ public class IntakeCommand extends Command {
     public void execute() {
         if (IntakeSubsystem.getPEStatus()) {
             IntakeSubsystem.setIntakeMotor(0);
-            ledSubsystem.FlashLed();
-            
+            ledSubsystem.FlashLed();  
         } else {
             IntakeSubsystem.setIntakeMotor(.6);
             ledSubsystem.SetLEDBuffer(255, 0, 0);

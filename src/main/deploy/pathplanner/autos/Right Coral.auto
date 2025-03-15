@@ -19,15 +19,9 @@
                 "data": {
                   "commands": [
                     {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0.5
-                      }
-                    },
-                    {
                       "type": "named",
                       "data": {
-                        "name": "wristUp1"
+                        "name": "wristUp"
                       }
                     },
                     {
@@ -39,19 +33,19 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "elevatorUp1"
+                        "name": "elevatorUp"
                       }
                     },
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 0.9
+                        "waitTime": 1.5
                       }
                     },
                     {
                       "type": "named",
                       "data": {
-                        "name": "outtake1"
+                        "name": "outtake"
                       }
                     }
                   ]
@@ -77,13 +71,13 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 1.0
+                        "waitTime": 0.5
                       }
                     },
                     {
                       "type": "named",
                       "data": {
-                        "name": "wristintake1"
+                        "name": "wristIntake"
                       }
                     }
                   ]
@@ -92,13 +86,13 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "elevatorIntake1"
+                  "name": "elevatorIntake"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "intake1"
+                  "name": "intake"
                 }
               }
             ]
@@ -127,7 +121,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "wristUp1"
+                        "name": "wristUp"
                       }
                     },
                     {
@@ -139,19 +133,19 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "elevatorUp1"
+                        "name": "elevatorUp"
                       }
                     },
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 0.9
+                        "waitTime": 1.5
                       }
                     },
                     {
                       "type": "named",
                       "data": {
-                        "name": "outtake1"
+                        "name": "outtake"
                       }
                     }
                   ]
@@ -183,7 +177,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "wristintake1"
+                        "name": "wristIntake"
                       }
                     }
                   ]
@@ -192,13 +186,13 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "elevatorIntake1"
+                  "name": "elevatorIntake"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "intake1"
+                  "name": "intake"
                 }
               }
             ]
@@ -227,7 +221,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "wristUp1"
+                        "name": "wristUp"
                       }
                     },
                     {
@@ -239,19 +233,19 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "elevatorUp1"
+                        "name": "elevatorUp"
                       }
                     },
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 0.9
+                        "waitTime": 1.5
                       }
                     },
                     {
                       "type": "named",
                       "data": {
-                        "name": "outtake1"
+                        "name": "outtake"
                       }
                     }
                   ]
@@ -283,7 +277,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "wristIntake1"
+                        "name": "wristIntake"
                       }
                     }
                   ]
@@ -292,13 +286,13 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "elevatorIntake1"
+                  "name": "elevatorIntake"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "intake1"
+                  "name": "Intake"
                 }
               }
             ]
@@ -327,7 +321,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "wristUp1"
+                        "name": "wristUp"
                       }
                     },
                     {
@@ -339,7 +333,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "elevatorUp1"
+                        "name": "elevatorUp"
                       }
                     },
                     {
@@ -351,7 +345,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "outtake1"
+                        "name": "outtake"
                       }
                     }
                   ]
@@ -363,7 +357,7 @@
       ]
     }
   },
-  "resetOdom": true,
+  "resetOdom": false,
   "folder": null,
   "choreoAuto": false
 }
