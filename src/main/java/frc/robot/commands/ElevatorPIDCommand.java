@@ -1,49 +1,53 @@
 package frc.robot.commands;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Elevator;
 
 public class ElevatorPIDCommand extends Command {
-    private Elevator elevatorSubsystem;
-    private final PIDController pidController;
-    private final ElevatorFeedforward feedforward;
-    private static double kP = 0.068; //.068
-    private static double kI = 0.0;
-    private static double kD = 0.00; //.005
-    private static double kS = 0.0;
-    private static double kG = 0.075; //.07
-    private static double kV = 0.0;
-    private static double kA = 0.0;
-    private double tolerance = 1;
+    
+  private Elevator elevatorSubsystem;
+  private double wantedSetpoint;//every "new elevatorPidCommand" thats created will be its own object with its own wanted setpoint (for each button and position you create)
+   
+  
+  //this is ran once when command is created, in robotcontainer, bindingconfig only runs once at boot. 
+  public ElevatorPIDCommand(Elevator elevatorSubsystem,double _wantedSetpoint) {
+      wantedSetpoint =_wantedSetpoint;
+      this.elevatorSubsystem = elevatorSubsystem;
+      addRequirements(elevatorSubsystem);
+    }
 
-    public ElevatorPIDCommand(Elevator elevatorSubsystem) {
-        this.elevatorSubsystem = elevatorSubsystem;
-        this.pidController = new PIDController(kP, kI, kD);
-        this.feedforward = new ElevatorFeedforward(kS, kG, kV, kA);
-        addRequirements(elevatorSubsystem);
-      }
-
+  //this is called every time the command is scheduled. 
   @Override
   public void initialize() {
-    System.out.println("ElevatorPIDCommand started!");
-    elevatorSubsystem.setElevatorMotor(tolerance);
+    System.out.println("ElevatorPIDCommand to position " + wantedSetpoint + "Started!");
+    elevatorSubsystem.targetSetpoint = wantedSetpoint;//the elevator subsystem controls the pid, its always running, this will just change the setpoint. 
   }
 
   @Override
   public void execute() {
-    if (pidController.getSetpoint() != elevatorSubsystem.targetSetpoint)
-      pidController.setSetpoint(elevatorSubsystem.targetSetpoint);
+    //periodic things are all handled by the main subsystem. this command just sets the setpoint and waits for arrival. 
+  }
 
-    double speed = pidController.calculate(elevatorSubsystem.getElevatorEncoder1()) + 
-    feedforward.calculate(pidController.getSetpoint());
-    elevatorSubsystem.setElevatorMotor(speed);
+  @Override
+  public boolean isFinished() {
+      boolean isatPosition = MathUtil.isNear(wantedSetpoint, elevatorSubsystem.getElevatorEncoder1(), elevatorSubsystem.positionalTolerance);
+      return isatPosition;//will return true when we are at setpoint. which will then run the END command. 
   }
 
   @Override
   public void end(boolean interrupted) {
-    elevatorSubsystem.setElevatorMotor(0);
-    System.out.println("ElevatorPIDCommand ended!");
+    //elevatorSubsystem.setElevatorMotor(0); //Our pid controls our position and the power to motors. 
+    if(interrupted)
+    {
+      System.out.println("ElevatorPIDCommand to position " + wantedSetpoint + "ended because another command was scheduled or this one was cancelled!");
+    }
+    else
+    {
+      System.out.println("ElevatorPIDCommand to position " + wantedSetpoint + "ended because it arrived at the location!");
+    }
+    
   }
 }

@@ -12,6 +12,7 @@ import com.pathplanner.lib.auto.NamedCommands;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.ElevatorPIDCommand;
@@ -56,12 +57,12 @@ public class RobotContainer {
         //Sets default autonomous routine
         //Puts the autonomous choser in Shuffleboard
         //Converts to commands that are useable only in Pathplanner
-        NamedCommands.registerCommand("elevatorUp", elevatorSubsystem.setElevatorSetpoint(27.8+1.285715222358704));
-        NamedCommands.registerCommand("elevatorDown", elevatorSubsystem.setElevatorSetpoint(0+1.285715222358704));
+        NamedCommands.registerCommand("elevatorUp", new ElevatorPIDCommand(elevatorSubsystem,27.8+1.285715222358704));
+        NamedCommands.registerCommand("elevatorDown", new ElevatorPIDCommand(elevatorSubsystem,0+1.285715222358704));
         NamedCommands.registerCommand("wristUp", intakeSubsystem.setPivotSetpoint(12.5-16.35712432861328));
         NamedCommands.registerCommand("outtake", new OuttakeCommand(intakeSubsystem, ledSubsystem, -11));
         NamedCommands.registerCommand("intake", new IntakeCommand(intakeSubsystem, ledSubsystem));
-        NamedCommands.registerCommand("elevatorIntake", elevatorSubsystem.setElevatorSetpoint(1.75+1.285715222358704));
+        NamedCommands.registerCommand("elevatorIntake", new ElevatorPIDCommand(elevatorSubsystem,1.75+1.285715222358704));
         NamedCommands.registerCommand("wristIntake", intakeSubsystem.setPivotSetpoint(-.5-16.35712432861328));
 
         // NamedCommands.registerCommand("elevatorDown", new AutonomousElevatorCommand(elevatorSubsystem, 2)); 
@@ -71,6 +72,8 @@ public class RobotContainer {
         configureBindings();
         ledSubsystem.ConfigureLEDs();
     }
+    public double elevatorSetpointOffset = 1.285715222358704;//only have to change this in 1 spot to update the entire robot
+    public double pivotSetpointOffset = -16.35712432861328;//only have to change this in 1 spot to update the entire robot and dont have to hunt for numbers in code anywhere else. 
 
     private void configureBindings() { //Binds Xbox controller bottons to Commands
         // Note that X is defined as forward according to WPILib convention,
@@ -85,42 +88,49 @@ public class RobotContainer {
         );
 
         //SET DEFAULT COMMANDS
-        elevatorSubsystem.setDefaultCommand(new ElevatorPIDCommand(elevatorSubsystem));
+        //elevatorSubsystem.setDefaultCommand(new ElevatorPIDCommand(elevatorSubsystem)); this is now built into the elevator subsystem. 
         intakeSubsystem.setDefaultCommand(new IntakePivotPIDCommand(intakeSubsystem));
         //INTAKE
         joystick.y().toggleOnTrue(intakeCommandV2);
-        joystick.y().onTrue(elevatorSubsystem.setElevatorSetpoint(1.75+1.285715222358704));
-        joystick.y().onTrue(intakeSubsystem.setPivotSetpoint(-.5-16.35712432861328));
+        joystick.y().onTrue(new ElevatorPIDCommand(elevatorSubsystem,1.75+elevatorSetpointOffset));
+        joystick.y().onTrue(intakeSubsystem.setPivotSetpoint(-.5+pivotSetpointOffset));
         joystick.y().onTrue(new InstantCommand(() -> SetDriveTrainSpeed(4)));
         //OUTTAKE
         joystick.rightBumper().onTrue(new OuttakeCommand(intakeSubsystem, ledSubsystem, -11));
         //L4
-        joystick.povUp().onTrue(elevatorSubsystem.setElevatorSetpoint(28.35+1.285715222358704)); //27.5
-        joystick.povUp().onTrue(intakeSubsystem.setPivotSetpoint(12.5-16.35712432861328));
+        joystick.povUp().onTrue(new ElevatorPIDCommand(elevatorSubsystem,28.35+elevatorSetpointOffset)); //27.5
+        joystick.povUp().onTrue(intakeSubsystem.setPivotSetpoint(12.5+pivotSetpointOffset));
         joystick.povUp().onTrue(new InstantCommand(() -> SetDriveTrainSpeed(1)));
         //L3
-        joystick.povRight().onTrue(elevatorSubsystem.setElevatorSetpoint(13.6+1.285715222358704));
-        joystick.povRight().onTrue(intakeSubsystem.setPivotSetpoint(12.5-16.35712432861328)); 
+        joystick.povRight().onTrue(new ElevatorPIDCommand(elevatorSubsystem,13.6+elevatorSetpointOffset));
+        joystick.povRight().onTrue(intakeSubsystem.setPivotSetpoint(12.5+pivotSetpointOffset)); 
         joystick.povRight().onTrue(new InstantCommand(() -> SetDriveTrainSpeed(2.3)));
         //DEALGIFY L3
-        joystick.rightTrigger().onTrue(elevatorSubsystem.setElevatorSetpoint(21.4+1.285715222358704));
-        joystick.rightTrigger().onTrue(intakeSubsystem.setPivotSetpoint(7-16.35712432861328));
+        joystick.rightTrigger().onTrue(new ElevatorPIDCommand(elevatorSubsystem,21.4+elevatorSetpointOffset));
+        joystick.rightTrigger().onTrue(intakeSubsystem.setPivotSetpoint(7+pivotSetpointOffset));
         joystick.rightTrigger().onTrue(new OuttakeCommand(intakeSubsystem, ledSubsystem, 30));
         joystick.rightTrigger().onTrue(new InstantCommand(() -> SetDriveTrainSpeed(1.5)));
         //L2
-        joystick.povDown().onTrue(elevatorSubsystem.setElevatorSetpoint(4.7+1.285715222358704));
-        joystick.povDown().onTrue(intakeSubsystem.setPivotSetpoint(12.5-16.35712432861328)); 
+        joystick.povDown().onTrue(new ElevatorPIDCommand(elevatorSubsystem,4.7+elevatorSetpointOffset));
+        joystick.povDown().onTrue(intakeSubsystem.setPivotSetpoint(12.5+pivotSetpointOffset)); 
         joystick.povDown().onTrue(new InstantCommand(() -> SetDriveTrainSpeed(6)));
         //DEALGIFY L2
-        joystick.leftTrigger().onTrue(elevatorSubsystem.setElevatorSetpoint(12.5+1.285715222358704));
-        joystick.leftTrigger().onTrue(intakeSubsystem.setPivotSetpoint(7-16.35712432861328));
+        joystick.leftTrigger().onTrue(new ElevatorPIDCommand(elevatorSubsystem,12.5+elevatorSetpointOffset));
+        joystick.leftTrigger().onTrue(intakeSubsystem.setPivotSetpoint(7+pivotSetpointOffset));
         joystick.leftTrigger().onTrue(new OuttakeCommand(intakeSubsystem, ledSubsystem, 30));
         joystick.leftTrigger().onTrue(new InstantCommand(() -> SetDriveTrainSpeed(3)));
         //Process
-        joystick.x().onTrue(elevatorSubsystem.setElevatorSetpoint(6+1.285715222358704));
-        joystick.x().onTrue(intakeSubsystem.setPivotSetpoint(3-16.35712432861328));
-        joystick.x().onTrue(new OuttakeCommand(intakeSubsystem, ledSubsystem, 30));
-        joystick.x().onTrue(new InstantCommand(() -> SetDriveTrainSpeed(4.5)));
+        // joystick.x().onTrue(new ElevatorPIDCommand(elevatorSubsystem,6+elevatorSetpointOffset));
+        // joystick.x().onTrue(intakeSubsystem.setPivotSetpoint(3+pivotSetpointOffset));
+        // joystick.x().onTrue(new OuttakeCommand(intakeSubsystem, ledSubsystem, 30));
+        // joystick.x().onTrue(new InstantCommand(() -> SetDriveTrainSpeed(4.5)));
+        
+        joystick.x().onTrue(Commands.parallel(
+            new ElevatorPIDCommand(elevatorSubsystem,6+elevatorSetpointOffset),
+            intakeSubsystem.setPivotSetpoint(3+pivotSetpointOffset),
+            new OuttakeCommand(intakeSubsystem, ledSubsystem, 30),
+            new InstantCommand(() -> SetDriveTrainSpeed(4.5))
+            ));
         // //CLIMB
         //  joystick.start().and(joystick.b()).onTrue(climberSubsystem.setClimberSetpoint(-85));
         //  joystick.start().and(joystick.a()).whileTrue(new InstantCommand(() -> climberSubsystem.setPinMotor(-.1)));
