@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.450856356512543,
-        "y": 5.624711378861375
+        "x": 5.235645013278864,
+        "y": 6.33430680467252
       },
       "isLocked": false,
       "linkedName": "End Coral 1"
     },
     {
       "anchor": {
-        "x": 1.632,
-        "y": 7.358317832965133
+        "x": 1.5,
+        "y": 7.25
       },
       "prevControl": {
-        "x": 3.4568358227394773,
-        "y": 6.227163253140258
+        "x": 3.3248358227394776,
+        "y": 6.118845420175125
       },
       "nextControl": null,
       "isLocked": false,
@@ -50,5 +50,5 @@
     "velocity": 0,
     "rotation": -119.99999999999999
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

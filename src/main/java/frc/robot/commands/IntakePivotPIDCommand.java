@@ -12,7 +12,7 @@ public class IntakePivotPIDCommand extends Command {
     public IntakePivotPIDCommand(Intake intakeSubsystem, double _wantedSetpoint) {  
       wantedSetpoint =_wantedSetpoint;    
       this.intakeSubsystem = intakeSubsystem;
-      addRequirements(intakeSubsystem);
+      // addRequirements(intakeSubsystem);
     }
     
   //this is called every time the command is scheduled. 

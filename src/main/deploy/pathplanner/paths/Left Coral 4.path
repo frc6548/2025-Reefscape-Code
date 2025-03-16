@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.9882523136340975,
-        "y": 5.240123945707527
+        "x": 4.925820901833901,
+        "y": 5.281964821390759
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.230817686168192,
-        "y": 5.792729916462834
+        "x": 4.300586035832294,
+        "y": 6.326045202371636
       },
       "isLocked": false,
       "linkedName": "End Coral 3"
     },
     {
       "anchor": {
-        "x": 1.6241194876227627,
-        "y": 7.361531673929892
+        "x": 1.5,
+        "y": 7.25
       },
       "prevControl": {
-        "x": 2.2995835411482513,
-        "y": 6.933419001787757
+        "x": 2.1754640535254888,
+        "y": 6.821887327857866
       },
       "nextControl": null,
       "isLocked": false,
@@ -50,5 +50,5 @@
     "velocity": 0,
     "rotation": -119.99999999999999
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.528554755105511,
-        "y": 3.296354850031872
+        "x": 3.6359671102976403,
+        "y": 2.535945978570542
       },
       "isLocked": false,
       "linkedName": "End Coral 3-R"
     },
     {
       "anchor": {
-        "x": 1.632,
-        "y": 0.6759935897435889
+        "x": 1.5038602941176469,
+        "y": 0.75
       },
       "prevControl": {
-        "x": 1.3528929360693804,
-        "y": 0.4235164266393141
+        "x": 2.0656102941162042,
+        "y": 1.2377012632047135
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,8 +33,8 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.5,
-    "maxAcceleration": 3.5,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,

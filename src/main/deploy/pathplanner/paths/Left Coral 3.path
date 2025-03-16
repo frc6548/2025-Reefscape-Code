@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.6241194876227627,
-        "y": 7.361531673929892
+        "x": 1.5,
+        "y": 7.25
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.4374564929313944,
-        "y": 6.8858035894524
+        "x": 2.3133370053086315,
+        "y": 6.774271915522508
       },
       "isLocked": false,
       "linkedName": "Left Human Player"
     },
     {
       "anchor": {
-        "x": 4.99557508329425,
-        "y": 5.240123945707527
+        "x": 4.925820901833901,
+        "y": 5.281964821390759
       },
       "prevControl": {
-        "x": 4.326100035153569,
-        "y": 5.677551130779097
+        "x": 6.061894276425937,
+        "y": 6.399103639739596
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,8 +33,8 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.5,
-    "maxAcceleration": 3.5,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,

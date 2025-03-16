@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.99682816007284,
+        "x": 4.997,
         "y": 2.8045590968164196
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.2001140788653135,
-        "y": 2.2167584096594144
+        "x": 4.997,
+        "y": 1.8045590968164196
       },
       "isLocked": false,
       "linkedName": "End Coral 2-R"
     },
     {
       "anchor": {
-        "x": 1.632,
-        "y": 0.6759935897435889
+        "x": 1.5,
+        "y": 0.75
       },
       "prevControl": {
-        "x": 3.0972445420485393,
-        "y": 1.611201290501543
+        "x": 2.491544117647059,
+        "y": 1.3076286764755514
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,8 +33,8 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.5,
-    "maxAcceleration": 3.5,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
