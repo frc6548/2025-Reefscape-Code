@@ -15,26 +15,24 @@ public class ClimberPIDCommand extends Command {
     private static double kS = 0.0;
     private static double kG = 0.01; 
     private static double kV = 0.0;
-    private double tolerance = .5;
 
-    public ClimberPIDCommand(Climber climberSubsystem) {      
+    public ClimberPIDCommand(Climber climberSubsystem, double setpoint) {      
       this.climberSubsystem = climberSubsystem;
       this.pidController = new PIDController(kP, kI, kD);
       this.feedforward = new ArmFeedforward(kS, kG, kV);
       addRequirements(climberSubsystem);
+      pidController.setSetpoint(setpoint);
     }
 
   @Override
   public void initialize() {
+    climberSubsystem.setClimberMotor(0);
+    pidController.reset();
     System.out.println("ClimberPIDCommand started!");
-    climberSubsystem.setClimberMotor(tolerance);
   }
 
   @Override
   public void execute() {
-    if (pidController.getSetpoint() != climberSubsystem.targetSetpoint)
-    pidController.setSetpoint(climberSubsystem.targetSetpoint);
-
     double speed = pidController.calculate(climberSubsystem.getClimberEncoder1()) +
     feedforward.calculate(0, pidController.getSetpoint());
     climberSubsystem.setClimberMotor(speed);

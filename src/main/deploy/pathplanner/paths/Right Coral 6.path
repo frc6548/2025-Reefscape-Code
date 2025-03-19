@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.9810365687566986,
-        "y": 2.80421181747785
+        "x": 3.9910221696694648,
+        "y": 2.8092530491839782
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.6359671102976403,
-        "y": 2.535945978570542
+        "x": 3.6459527112104064,
+        "y": 2.54098721027667
       },
       "isLocked": false,
       "linkedName": "End Coral 3-R"
@@ -33,8 +33,8 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 3.5,
+    "maxAcceleration": 3.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,

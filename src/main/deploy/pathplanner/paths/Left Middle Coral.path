@@ -4,28 +4,28 @@
     {
       "anchor": {
         "x": 7.2,
-        "y": 2.7
+        "y": 3.9
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.952061089096162,
-        "y": 2.3602827234620722
+        "x": 6.37610294117647,
+        "y": 3.9248161764705882
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.3374701068547505,
-        "y": 3.012801063761565
+        "x": 5.780230940049032,
+        "y": 3.85
       },
       "prevControl": {
-        "x": 5.636224037535631,
-        "y": 2.511203018480387
+        "x": 6.316260351813737,
+        "y": 3.8698529411764704
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "End Coral 1-R"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -42,10 +42,10 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 119.99999999999999
+    "rotation": 180.0
   },
   "reversed": false,
-  "folder": "Right Coral",
+  "folder": null,
   "idealStartingState": {
     "velocity": 0,
     "rotation": 180.0

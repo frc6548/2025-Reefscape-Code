@@ -34,11 +34,10 @@ public class Robot extends TimedRobot {
         m_robotContainer.drivetrain.addVisionMeasurement(llMeasurement.pose, llMeasurement.timestampSeconds);
       }
       if (Math.random() > .95) {
-       // System.out.println("headingDeg: " + headingDeg);
+       System.out.println("headingDeg: " + headingDeg);
       }
     }
   }
-  
 
   @Override
   public void disabledInit() {}

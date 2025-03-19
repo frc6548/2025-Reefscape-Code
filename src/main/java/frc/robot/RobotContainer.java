@@ -9,22 +9,27 @@ import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.commands.ClimberPIDCommand;
 import frc.robot.commands.ElevatorPIDCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.IntakeCommandV2;
 import frc.robot.commands.IntakePivotPIDCommand;
 import frc.robot.commands.OuttakeCommand;
+import frc.robot.commands.PinPIDCommand;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LEDs;
+import frc.robot.subsystems.Climber;
 
 public class RobotContainer {
     private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
@@ -36,6 +41,7 @@ public class RobotContainer {
             .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors
 
     private final Telemetry logger = new Telemetry(MaxSpeed);
+    
 
     //Creates new xbox controller on port 0
     private final CommandXboxController joystick = new CommandXboxController(0);
@@ -45,6 +51,8 @@ public class RobotContainer {
     public final Intake intakeSubsystem = new Intake();
     public final Elevator elevatorSubsystem = new Elevator();
     public final LEDs ledSubsystem = new LEDs();
+    public final Climber ClimberSubsystem = new Climber();
+
     //Creates instances of our Commands
     public final IntakeCommand intakeCommand = new IntakeCommand(intakeSubsystem, ledSubsystem);
     public final IntakeCommandV2 intakeCommandV2 = new IntakeCommandV2(intakeSubsystem, ledSubsystem);
@@ -70,6 +78,9 @@ public class RobotContainer {
         //Runs functions for one time robot configurations
         configureBindings();
         ledSubsystem.ConfigureLEDs();
+
+        Pose2d latestMt1 = LimelightHelpers.getBotPose2d_wpiBlue("limelight");
+        drivetrain.resetPose(new Pose2d(new Translation2d(0, 0), latestMt1.getRotation()));
     }
     public double elevatorSetpointOffset = 1.285715222358704;//only have to change this in 1 spot to update the entire robot
     public double pivotSetpointOffset = -16.35712432861328;//only have to change this in 1 spot to update the entire robot and dont have to hunt for numbers in code anywhere else. 
@@ -121,16 +132,18 @@ public class RobotContainer {
         // joystick.x().onTrue(new OuttakeCommand(intakeSubsystem, ledSubsystem, 30));
         // joystick.x().onTrue(new InstantCommand(() -> SetDriveTrainSpeed(4.5)));
         
-        joystick.x().onTrue(Commands.parallel(
-            new ElevatorPIDCommand(elevatorSubsystem,6+elevatorSetpointOffset),
-            new IntakePivotPIDCommand(intakeSubsystem,3+pivotSetpointOffset),
-            new OuttakeCommand(intakeSubsystem, ledSubsystem, 30),
-            new InstantCommand(() -> SetDriveTrainSpeed(4.5))
-            ));
-        // //CLIMB
-        //  joystick.start().and(joystick.b()).onTrue(climberSubsystem.setClimberSetpoint(-85));
-        //  joystick.start().and(joystick.a()).whileTrue(new InstantCommand(() -> climberSubsystem.setPinMotor(-.1)));
-        //  joystick.start().and(joystick.a()).whileFalse(new InstantCommand(() -> climberSubsystem.setPinMotor(0)));
+        // joystick.x().onTrue(Commands.parallel(
+        //     new ElevatorPIDCommand(elevatorSubsystem,6+elevatorSetpointOffset),
+        //     new IntakePivotPIDCommand(intakeSubsystem,3+pivotSetpointOffset),
+        //     new OuttakeCommand(intakeSubsystem, ledSubsystem, 30),
+        //     new InstantCommand(() -> SetDriveTrainSpeed(4.5))
+        //     ));
+
+        //CLIMBER OUT + PIN PULL
+        joystick.start().and(joystick.x()).onTrue((new PinPIDCommand(ClimberSubsystem, 7.5)));
+        joystick.start().and(joystick.a()).onTrue((new ClimberPIDCommand(ClimberSubsystem, 42.6)));
+        // CLIMB UP
+        joystick.start().and(joystick.b()).onTrue(new ClimberPIDCommand(ClimberSubsystem, 10));
 
         // CTRE SysID Tests, not used yet 
         // Run SysId routines when holding back/start and X/Y.

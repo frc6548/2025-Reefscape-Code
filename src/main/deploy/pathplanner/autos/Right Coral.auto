@@ -19,21 +19,22 @@
                 "data": {
                   "commands": [
                     {
-                      "type": "named",
+                      "type": "parallel",
                       "data": {
-                        "name": "wristUp"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "elevatorUp"
-                      }
-                    },
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0.25
+                        "commands": [
+                          {
+                            "type": "named",
+                            "data": {
+                              "name": "wristUp"
+                            }
+                          },
+                          {
+                            "type": "named",
+                            "data": {
+                              "name": "elevatorUp"
+                            }
+                          }
+                        ]
                       }
                     },
                     {
@@ -65,6 +66,18 @@
                     {
                       "type": "wait",
                       "data": {
+                        "waitTime": 0.1
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "elevatorIntake"
+                      }
+                    },
+                    {
+                      "type": "wait",
+                      "data": {
                         "waitTime": 0.25
                       }
                     },
@@ -72,12 +85,6 @@
                       "type": "named",
                       "data": {
                         "name": "wristIntake"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "elevatorIntake"
                       }
                     }
                   ]
@@ -115,19 +122,13 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 1.2
+                        "waitTime": 0.6
                       }
                     },
                     {
                       "type": "named",
                       "data": {
                         "name": "elevatorUp"
-                      }
-                    },
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0.25
                       }
                     },
                     {
@@ -159,6 +160,18 @@
                     {
                       "type": "wait",
                       "data": {
+                        "waitTime": 0.1
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "elevatorIntake"
+                      }
+                    },
+                    {
+                      "type": "wait",
+                      "data": {
                         "waitTime": 0.25
                       }
                     },
@@ -166,12 +179,6 @@
                       "type": "named",
                       "data": {
                         "name": "wristIntake"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "elevatorIntake"
                       }
                     }
                   ]
@@ -209,19 +216,13 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 0.85
+                        "waitTime": 0.5
                       }
                     },
                     {
                       "type": "named",
                       "data": {
                         "name": "elevatorUp"
-                      }
-                    },
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0.25
                       }
                     },
                     {
@@ -253,6 +254,18 @@
                     {
                       "type": "wait",
                       "data": {
+                        "waitTime": 0.1
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "elevatorIntake"
+                      }
+                    },
+                    {
+                      "type": "wait",
+                      "data": {
                         "waitTime": 0.25
                       }
                     },
@@ -260,12 +273,6 @@
                       "type": "named",
                       "data": {
                         "name": "wristIntake"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "elevatorIntake"
                       }
                     }
                   ]
@@ -303,19 +310,13 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 0.85
+                        "waitTime": 0.5
                       }
                     },
                     {
                       "type": "named",
                       "data": {
                         "name": "elevatorUp"
-                      }
-                    },
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0.25
                       }
                     },
                     {
