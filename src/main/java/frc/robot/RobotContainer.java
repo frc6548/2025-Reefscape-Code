@@ -82,19 +82,19 @@ public class RobotContainer {
         ledSubsystem.ConfigureLEDs();
 
         Pose2d latestMt1 = LimelightHelpers.getBotPose2d_wpiBlue("limelight");
-        
-        new SequentialCommandGroup(
-        new InstantCommand(() -> drivetrain.resetPose(new Pose2d(new Translation2d(0, 0), latestMt1.getRotation())))
-        ,(new InstantCommand(() -> System.out.println(1)))
-        ,(new WaitCommand(.25))
-        ,(new InstantCommand(() -> drivetrain.resetPose(new Pose2d(new Translation2d(0, 0), latestMt1.getRotation()))))
-        ,(new InstantCommand(() -> System.out.println(1)))
-        ,(new WaitCommand(.25))
-        ,(new InstantCommand(() -> drivetrain.resetPose(new Pose2d(new Translation2d(0, 0), latestMt1.getRotation()))))
-        ,(new InstantCommand(() -> System.out.println(1)))
-        ,(new WaitCommand(.25))
-        ,(new InstantCommand(() -> drivetrain.resetPose(new Pose2d(new Translation2d(0, 0), latestMt1.getRotation()))))
-        ,(new InstantCommand(() -> System.out.println(1))));
+
+        new SequentialCommandGroup (
+        new InstantCommand(() -> drivetrain.resetPose(new Pose2d(new Translation2d(0, 0), latestMt1.getRotation()))),
+        (new InstantCommand(() -> System.out.println(1))),
+        (new WaitCommand(.25)),
+        (new InstantCommand(() -> drivetrain.resetPose(new Pose2d(new Translation2d(0, 0), latestMt1.getRotation())))),
+        (new InstantCommand(() -> System.out.println(1))),
+        (new WaitCommand(.25)),
+        (new InstantCommand(() -> drivetrain.resetPose(new Pose2d(new Translation2d(0, 0), latestMt1.getRotation())))),
+        (new InstantCommand(() -> System.out.println(1))),
+        (new WaitCommand(.25)),
+        (new InstantCommand(() -> drivetrain.resetPose(new Pose2d(new Translation2d(0, 0), latestMt1.getRotation())))),
+        (new InstantCommand(() -> System.out.println(1)))).schedule();
         }
 
     public double elevatorSetpointOffset = 1.285715222358704;//only have to change this in 1 spot to update the entire robot
