@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.5038602941176469,
-        "y": 0.75
+        "x": 6.0,
+        "y": 3.85
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.4435529149035555,
-        "y": 1.0920201433256684
+        "x": 7.0,
+        "y": 3.85
       },
       "isLocked": false,
-      "linkedName": "Right Human Player"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 4.99330665003334,
-        "y": 2.817901573397064
+        "x": 5.775219838534539,
+        "y": 3.85
       },
       "prevControl": {
-        "x": 6.092141262198988,
-        "y": 2.2013508124264
+        "x": 5.525221715291412,
+        "y": 3.84903130246495
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "End Coral 2-R"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 119.99999999999999
+    "rotation": 179.7854100688706
   },
   "reversed": false,
-  "folder": "Right Coral",
+  "folder": "Limelight test",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 53.5
+    "rotation": -179.662423464865
   },
   "useDefaultConstraints": true
 }

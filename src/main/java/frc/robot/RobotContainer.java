@@ -15,17 +15,19 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.commands.ClimberPIDCommand;
+// import frc.robot.commands.ClimberPIDCommand;
 import frc.robot.commands.ElevatorPIDCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.IntakeCommandV2;
 import frc.robot.commands.IntakePivotPIDCommand;
 import frc.robot.commands.OuttakeCommand;
-import frc.robot.commands.PinPIDCommand;
+// import frc.robot.commands.PinPIDCommand;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.Elevator;
@@ -82,7 +84,6 @@ public class RobotContainer {
         ledSubsystem.ConfigureLEDs();
 
         Pose2d latestMt1 = LimelightHelpers.getBotPose2d_wpiBlue("limelight");
-
         new SequentialCommandGroup (
         new InstantCommand(() -> drivetrain.resetPose(new Pose2d(new Translation2d(0, 0), latestMt1.getRotation()))),
         (new InstantCommand(() -> System.out.println(1))),
@@ -94,11 +95,11 @@ public class RobotContainer {
         (new InstantCommand(() -> System.out.println(1))),
         (new WaitCommand(.25)),
         (new InstantCommand(() -> drivetrain.resetPose(new Pose2d(new Translation2d(0, 0), latestMt1.getRotation())))),
-        (new InstantCommand(() -> System.out.println(1)))).schedule();
+        (new InstantCommand(() -> System.out.println(1)))).ignoringDisable(true).schedule();
         }
-
+    
     public double elevatorSetpointOffset = 1.285715222358704;//only have to change this in 1 spot to update the entire robot
-    public double pivotSetpointOffset = -16.35712432861328;//only have to change this in 1 spot to update the entire robot and dont have to hunt for numbers in code anywhere else. 
+    public double pivotSetpointOffset =-14; //-16.35712432861328;//only have to change this in 1 spot to update the entire robot and dont have to hunt for numbers in code anywhere else. 
 
     private void configureBindings() { //Binds Xbox controller bottons to Commands
         // Note that X is defined as forward according to WPILib convention,
@@ -117,6 +118,7 @@ public class RobotContainer {
         joystick.y().onTrue(new ElevatorPIDCommand(elevatorSubsystem,1.75+elevatorSetpointOffset));
         joystick.y().onTrue(new IntakePivotPIDCommand(intakeSubsystem, -.5+pivotSetpointOffset));
         joystick.y().onTrue(new InstantCommand(() -> SetDriveTrainSpeed(4)));
+
         //OUTTAKE
         joystick.rightBumper().onTrue(new OuttakeCommand(intakeSubsystem, ledSubsystem, -11));
         //L4
@@ -147,18 +149,18 @@ public class RobotContainer {
         // joystick.x().onTrue(new OuttakeCommand(intakeSubsystem, ledSubsystem, 30));
         // joystick.x().onTrue(new InstantCommand(() -> SetDriveTrainSpeed(4.5)));
         
-        // joystick.x().onTrue(Commands.parallel(
-        //     new ElevatorPIDCommand(elevatorSubsystem,6+elevatorSetpointOffset),
-        //     new IntakePivotPIDCommand(intakeSubsystem,3+pivotSetpointOffset),
-        //     new OuttakeCommand(intakeSubsystem, ledSubsystem, 30),
-        //     new InstantCommand(() -> SetDriveTrainSpeed(4.5))
-        //     ));
+        joystick.x().onTrue(Commands.parallel(
+            new ElevatorPIDCommand(elevatorSubsystem,6+elevatorSetpointOffset),
+            new IntakePivotPIDCommand(intakeSubsystem,3+pivotSetpointOffset),
+            new OuttakeCommand(intakeSubsystem, ledSubsystem, 30),
+            new InstantCommand(() -> SetDriveTrainSpeed(4.5))
+            ));
 
         //CLIMBER OUT + PIN PULL
-        joystick.start().and(joystick.x()).onTrue((new PinPIDCommand(ClimberSubsystem, 7.5)));
-        joystick.start().and(joystick.a()).onTrue((new ClimberPIDCommand(ClimberSubsystem, 42.6)));
-        // CLIMB UP
-        joystick.start().and(joystick.b()).onTrue(new ClimberPIDCommand(ClimberSubsystem, 10));
+        // joystick.start().and(joystick.x()).onTrue((new PinPIDCommand(ClimberSubsystem, 7.5)));
+        // joystick.start().and(joystick.a()).onTrue((new ClimberPIDCommand(ClimberSubsystem, 42.6)));
+        // // CLIMB UP
+        // joystick.start().and(joystick.b()).onTrue(new ClimberPIDCommand(ClimberSubsystem, 10));
 
         // CTRE SysID Tests, not used yet 
         // Run SysId routines when holding back/start and X/Y.

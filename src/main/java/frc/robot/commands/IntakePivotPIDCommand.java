@@ -29,8 +29,10 @@ public class IntakePivotPIDCommand extends Command {
 
   @Override
   public boolean isFinished() {
-      boolean isatPosition = MathUtil.isNear(wantedSetpoint, intakeSubsystem.getPivotEncoder(), intakeSubsystem.positionalTolerance);
-      return isatPosition; //will return true when we are at setpoint. which will then run the END command. 
+      return true; // END INSTANTLY because this command doesn't need to be running after we set the desired position
+      // boolean isatPosition = MathUtil.isNear(wantedSetpoint, intakeSubsystem.getPivotEncoder(), intakeSubsystem.
+      // positionalTolerance);
+      // return isatPosition; //will return true when we are at setpoint. which will then run the END command. 
   }
 
   @Override
