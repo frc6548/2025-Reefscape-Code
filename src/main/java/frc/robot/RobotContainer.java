@@ -99,7 +99,7 @@ public class RobotContainer {
         }
     
     public double elevatorSetpointOffset = 1.285715222358704;//only have to change this in 1 spot to update the entire robot
-    public double pivotSetpointOffset =-14; //-16.35712432861328;//only have to change this in 1 spot to update the entire robot and dont have to hunt for numbers in code anywhere else. 
+    public double pivotSetpointOffset =-16.35712432861328;//only have to change this in 1 spot to update the entire robot and dont have to hunt for numbers in code anywhere else. 
 
     private void configureBindings() { //Binds Xbox controller bottons to Commands
         // Note that X is defined as forward according to WPILib convention,
