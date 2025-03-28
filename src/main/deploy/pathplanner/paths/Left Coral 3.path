@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.3133370053086315,
-        "y": 6.774271915522508
+        "x": 2.1256261827974745,
+        "y": 6.674315102729108
       },
       "isLocked": false,
       "linkedName": "Left Human Player"
     },
     {
       "anchor": {
-        "x": 5.0,
-        "y": 5.24
+        "x": 3.9743628126834256,
+        "y": 5.236127877609351
       },
       "prevControl": {
-        "x": 6.136073374592036,
-        "y": 6.357138818348837
+        "x": 3.7906108661799203,
+        "y": 5.405642544102174
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "End Coral 3"
+      "linkedName": "End Coral 5"
     }
   ],
   "rotationTargets": [],
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -119.99999999999999
+    "rotation": -59.99999999999999
   },
   "reversed": false,
   "folder": "Left Coral",

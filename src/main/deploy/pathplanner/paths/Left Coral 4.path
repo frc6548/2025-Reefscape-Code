@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.002148986235668,
-        "y": 5.235571602626505
+        "x": 3.9743628126834256,
+        "y": 5.236127877609351
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.376914120234061,
-        "y": 6.279651983607382
+        "x": 3.401622585173835,
+        "y": 5.76948660741178
       },
       "isLocked": false,
-      "linkedName": "End Coral 3"
+      "linkedName": "End Coral 5"
     },
     {
       "anchor": {
@@ -20,8 +20,8 @@
         "y": 7.25
       },
       "prevControl": {
-        "x": 2.1754640535254888,
-        "y": 6.821887327857866
+        "x": 2.3462140919568286,
+        "y": 6.515892670126292
       },
       "nextControl": null,
       "isLocked": false,
@@ -48,7 +48,7 @@
   "folder": "Left Coral",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -119.99999999999999
+    "rotation": -59.99999999999999
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

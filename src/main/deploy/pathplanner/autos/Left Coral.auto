@@ -25,6 +25,12 @@
                       }
                     },
                     {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.1
+                      }
+                    },
+                    {
                       "type": "named",
                       "data": {
                         "name": "elevatorUp"
@@ -33,7 +39,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 0.5
+                        "waitTime": 0.25
                       }
                     },
                     {
@@ -59,34 +65,47 @@
                 }
               },
               {
-                "type": "sequential",
+                "type": "parallel",
                 "data": {
                   "commands": [
                     {
-                      "type": "wait",
+                      "type": "sequential",
                       "data": {
-                        "waitTime": 0.25
+                        "commands": [
+                          {
+                            "type": "wait",
+                            "data": {
+                              "waitTime": 0.35
+                            }
+                          },
+                          {
+                            "type": "named",
+                            "data": {
+                              "name": "elevatorIntake"
+                            }
+                          },
+                          {
+                            "type": "wait",
+                            "data": {
+                              "waitTime": 0.1
+                            }
+                          },
+                          {
+                            "type": "named",
+                            "data": {
+                              "name": "wristIntake"
+                            }
+                          }
+                        ]
                       }
                     },
                     {
                       "type": "named",
                       "data": {
-                        "name": "wristIntake"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "elevatorIntake"
+                        "name": "intake"
                       }
                     }
                   ]
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "intake"
                 }
               }
             ]
@@ -115,7 +134,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 0.75
+                        "waitTime": 0.55
                       }
                     },
                     {
@@ -127,7 +146,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 0.25
+                        "waitTime": 0.45
                       }
                     },
                     {
@@ -163,19 +182,25 @@
                           {
                             "type": "wait",
                             "data": {
-                              "waitTime": 0.25
-                            }
-                          },
-                          {
-                            "type": "named",
-                            "data": {
-                              "name": "wristIntake"
+                              "waitTime": 0.35
                             }
                           },
                           {
                             "type": "named",
                             "data": {
                               "name": "elevatorIntake"
+                            }
+                          },
+                          {
+                            "type": "wait",
+                            "data": {
+                              "waitTime": 0.1
+                            }
+                          },
+                          {
+                            "type": "named",
+                            "data": {
+                              "name": "wristIntake"
                             }
                           }
                         ]
@@ -216,7 +241,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 0.75
+                        "waitTime": 0.4
                       }
                     },
                     {
@@ -228,7 +253,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 0.25
+                        "waitTime": 0.5
                       }
                     },
                     {
@@ -250,7 +275,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Left Coral 6"
+                  "pathName": "Left coral 6"
                 }
               },
               {
@@ -264,19 +289,25 @@
                           {
                             "type": "wait",
                             "data": {
-                              "waitTime": 0.25
-                            }
-                          },
-                          {
-                            "type": "named",
-                            "data": {
-                              "name": "wristIntake"
+                              "waitTime": 0.35
                             }
                           },
                           {
                             "type": "named",
                             "data": {
                               "name": "elevatorIntake"
+                            }
+                          },
+                          {
+                            "type": "wait",
+                            "data": {
+                              "waitTime": 0.1
+                            }
+                          },
+                          {
+                            "type": "named",
+                            "data": {
+                              "name": "wristIntake"
                             }
                           }
                         ]
@@ -301,7 +332,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Left Coral 7"
+                  "pathName": "Left coral 7"
                 }
               },
               {
@@ -347,7 +378,7 @@
       ]
     }
   },
-  "resetOdom": true,
+  "resetOdom": false,
   "folder": null,
   "choreoAuto": false
 }

@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.213295002637511,
-        "y": 6.431788178857743
+        "x": 0.8230448717948713,
+        "y": 5.521474358974359
       },
       "isLocked": false,
       "linkedName": "Left Human Player"
     },
     {
       "anchor": {
-        "x": 3.655121423889979,
-        "y": 5.036097330718815
+        "x": 3.176121794871794,
+        "y": 4.190128205128206
       },
       "prevControl": {
-        "x": 3.1531028107533943,
-        "y": 5.6282902695268575
+        "x": 1.7776923076923072,
+        "y": 4.071442307692307
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -59.99999999999999
+    "rotation": 0.0
   },
   "reversed": false,
   "folder": "Left Coral",

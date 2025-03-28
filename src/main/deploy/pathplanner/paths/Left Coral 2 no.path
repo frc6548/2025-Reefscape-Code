@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.052757352941176,
-        "y": 1.8833639705882341
+        "x": 5.0,
+        "y": 5.24
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.950588942460214,
-        "y": 2.303369842036648
+        "x": 4.956904464650097,
+        "y": 6.505692061772715
       },
       "isLocked": false,
-      "linkedName": "rstart coral 1"
+      "linkedName": "End Coral 3"
     },
     {
       "anchor": {
-        "x": 4.99330665003334,
-        "y": 2.817901573397064
+        "x": 1.5,
+        "y": 7.25
       },
       "prevControl": {
-        "x": 6.133873234633899,
-        "y": 2.310215129609743
+        "x": 3.3248358227394776,
+        "y": 6.118845420175125
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "End Coral 2-R"
+      "linkedName": "Left Human Player"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 119.99999999999999
+    "rotation": -53.5
   },
   "reversed": false,
-  "folder": "Right Coral",
+  "folder": "Left Coral",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 148.54317664244488
+    "rotation": -119.99999999999999
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

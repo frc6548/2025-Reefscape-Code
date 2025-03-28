@@ -9,25 +9,21 @@ import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
-
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-// import frc.robot.commands.ClimberPIDCommand;
+import frc.robot.commands.ClimberPIDCommand;
 import frc.robot.commands.ElevatorPIDCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.IntakeCommandV2;
 import frc.robot.commands.IntakePivotPIDCommand;
 import frc.robot.commands.OuttakeCommand;
-// import frc.robot.commands.PinPIDCommand;
+import frc.robot.commands.PinPIDCommand;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.Elevator;
@@ -70,11 +66,11 @@ public class RobotContainer {
         //Converts to commands that are useable only in Pathplanner
         NamedCommands.registerCommand("elevatorUp", new ElevatorPIDCommand(elevatorSubsystem,27.8+1.285715222358704));
         NamedCommands.registerCommand("elevatorDown", new ElevatorPIDCommand(elevatorSubsystem,0+1.285715222358704));
-        NamedCommands.registerCommand("wristUp", new IntakePivotPIDCommand(intakeSubsystem, 12.5-16.35712432861328));
+        NamedCommands.registerCommand("wristUp", new IntakePivotPIDCommand(intakeSubsystem, 12.5-16.35712432861328+0.5));
         NamedCommands.registerCommand("outtake", new OuttakeCommand(intakeSubsystem, ledSubsystem, -11));
         NamedCommands.registerCommand("intake", new IntakeCommand(intakeSubsystem, ledSubsystem));
         NamedCommands.registerCommand("elevatorIntake", new ElevatorPIDCommand(elevatorSubsystem,1.75+1.285715222358704));
-        NamedCommands.registerCommand("wristIntake", new IntakePivotPIDCommand(intakeSubsystem,-.5-16.35712432861328));
+        NamedCommands.registerCommand("wristIntake", new IntakePivotPIDCommand(intakeSubsystem,-.5-16.35712432861328+0.5));
 
         // NamedCommands.registerCommand("elevatorDown", new AutonomousElevatorCommand(elevatorSubsystem, 2)); 
         autoChooser = AutoBuilder.buildAutoChooser("Right Coral");
@@ -83,23 +79,23 @@ public class RobotContainer {
         configureBindings();
         ledSubsystem.ConfigureLEDs();
 
-        Pose2d latestMt1 = LimelightHelpers.getBotPose2d_wpiBlue("limelight");
-        new SequentialCommandGroup (
-        new InstantCommand(() -> drivetrain.resetPose(new Pose2d(new Translation2d(0, 0), latestMt1.getRotation()))),
-        (new InstantCommand(() -> System.out.println(1))),
-        (new WaitCommand(.25)),
-        (new InstantCommand(() -> drivetrain.resetPose(new Pose2d(new Translation2d(0, 0), latestMt1.getRotation())))),
-        (new InstantCommand(() -> System.out.println(1))),
-        (new WaitCommand(.25)),
-        (new InstantCommand(() -> drivetrain.resetPose(new Pose2d(new Translation2d(0, 0), latestMt1.getRotation())))),
-        (new InstantCommand(() -> System.out.println(1))),
-        (new WaitCommand(.25)),
-        (new InstantCommand(() -> drivetrain.resetPose(new Pose2d(new Translation2d(0, 0), latestMt1.getRotation())))),
-        (new InstantCommand(() -> System.out.println(1)))).ignoringDisable(true).schedule();
+        // Pose2d latestMt1 = LimelightHelpers.getBotPose2d_wpiBlue("limelight");
+        // new SequentialCommandGroup (
+        // new InstantCommand(() -> drivetrain.resetPose(new Pose2d(new Translation2d(0, 0), latestMt1.getRotation()))),
+        // (new InstantCommand(() -> System.out.println(1))),
+        // (new WaitCommand(.25)),
+        // (new InstantCommand(() -> drivetrain.resetPose(new Pose2d(new Translation2d(0, 0), latestMt1.getRotation())))),
+        // (new InstantCommand(() -> System.out.println(1))),
+        // (new WaitCommand(.25)),
+        // (new InstantCommand(() -> drivetrain.resetPose(new Pose2d(new Translation2d(0, 0), latestMt1.getRotation())))),
+        // (new InstantCommand(() -> System.out.println(1))),
+        // (new WaitCommand(.25)),
+        // (new InstantCommand(() -> drivetrain.resetPose(new Pose2d(new Translation2d(0, 0), latestMt1.getRotation())))),
+        // (new InstantCommand(() -> System.out.println(1)))).ignoringDisable(true).schedule();
         }
     
     public double elevatorSetpointOffset = 1.285715222358704;//only have to change this in 1 spot to update the entire robot
-    public double pivotSetpointOffset =-16.35712432861328;//only have to change this in 1 spot to update the entire robot and dont have to hunt for numbers in code anywhere else. 
+    public double pivotSetpointOffset =-16.35712432861328+0.5;//only have to change this in 1 spot to update the entire robot and dont have to hunt for numbers in code anywhere else. 
 
     private void configureBindings() { //Binds Xbox controller bottons to Commands
         // Note that X is defined as forward according to WPILib convention,
@@ -143,28 +139,27 @@ public class RobotContainer {
         joystick.leftTrigger().onTrue(new IntakePivotPIDCommand(intakeSubsystem,7+pivotSetpointOffset));
         joystick.leftTrigger().onTrue(new OuttakeCommand(intakeSubsystem, ledSubsystem, 30));
         joystick.leftTrigger().onTrue(new InstantCommand(() -> SetDriveTrainSpeed(3)));
-        //Process
-        // joystick.x().onTrue(new ElevatorPIDCommand(elevatorSubsystem,6+elevatorSetpointOffset));
-        // joystick.x().onTrue(intakeSubsystem.setPivotSetpoint(3+pivotSetpointOffset));
-        // joystick.x().onTrue(new OuttakeCommand(intakeSubsystem, ledSubsystem, 30));
-        // joystick.x().onTrue(new InstantCommand(() -> SetDriveTrainSpeed(4.5)));
-        
+        //PROCESS
         joystick.x().onTrue(Commands.parallel(
             new ElevatorPIDCommand(elevatorSubsystem,6+elevatorSetpointOffset),
             new IntakePivotPIDCommand(intakeSubsystem,3+pivotSetpointOffset),
             new OuttakeCommand(intakeSubsystem, ledSubsystem, 30),
             new InstantCommand(() -> SetDriveTrainSpeed(4.5))
             ));
-
         //CLIMBER OUT + PIN PULL
-        // joystick.start().and(joystick.x()).onTrue((new PinPIDCommand(ClimberSubsystem, 7.5)));
-        // joystick.start().and(joystick.a()).onTrue((new ClimberPIDCommand(ClimberSubsystem, 42.6)));
-        // // CLIMB UP
+        // joystick.start().and(joystick.a()).onTrue(new SequentialCommandGroup (
+        //     new PinPIDCommand(ClimberSubsystem, 7.5),
+        //     new WaitCommand(10),
+        //     new ClimberPIDCommand(ClimberSubsystem, 48))); //42.6 = 90 Degrees
+        //CLIMB UP
         // joystick.start().and(joystick.b()).onTrue(new ClimberPIDCommand(ClimberSubsystem, 10));
-
-        // CTRE SysID Tests, not used yet 
-        // Run SysId routines when holding back/start and X/Y.
-        // Note that each routine should be run exactly once in a single log.
+        //MANUAL CLIMBER CONTROLS
+        joystick.start().and(joystick.b()).whileTrue(new InstantCommand(() -> ClimberSubsystem.setClimberMotor (.3)));
+        joystick.start().and(joystick.b()).whileFalse(new InstantCommand(() -> ClimberSubsystem.setClimberMotor (0)));
+        joystick.start().and(joystick.a()).whileTrue(new InstantCommand(() -> ClimberSubsystem.setClimberMotor (-.3)));
+        joystick.start().and(joystick.a()).whileFalse(new InstantCommand(() -> ClimberSubsystem.setClimberMotor (0)));
+        // CTRE SysID Tests
+        // Note that each routine should be run exactly once in a single log. If run each more than once, test fails
         // joystick.back().and(joystick.y()).whileTrue(drivetrain.sysIdDynamic(Direction.kForward));
         // joystick.back().and(joystick.x()).whileTrue(drivetrain.sysIdDynamic(Direction.kReverse));
         // joystick.start().and(joystick.y()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));

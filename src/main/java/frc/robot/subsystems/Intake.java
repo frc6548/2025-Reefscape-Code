@@ -10,10 +10,6 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
-
-import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.math.controller.ArmFeedforward;
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -36,12 +32,12 @@ public class Intake extends SubsystemBase{
     
     // private final PIDController pidController;
     // private final ArmFeedforward feedforward;
-    private static double kP = 055; //.6 
+    private static double kP = .055; //.6 
     private static double kI = 0.0;
     private static double kD = 0.0;
-    private static double kS = 0.0;
-    private static double kG = 0.025; //.07
-    private static double kV = 0.0;
+    // private static double kS = 0.0;
+    // private static double kG = 0.025; //.07
+    // private static double kV = 0.0;
     public double positionalTolerance = 0.2; //if the encoder is less than this distance (1 revolution) it is considered at the setpoint. this is used by the intake commands.
 
 
@@ -72,7 +68,7 @@ public class Intake extends SubsystemBase{
     //pidController.setSetpoint(targetSetpoint);
     //double speed = pidController.calculate(getPivotEncoder());
     //+ feedforward.calculate(0, pidController.getSetpoint());
-      //MathUtil.inputModulus(speed, speed, speed);
+    //MathUtil.inputModulus(speed, speed, speed);
     //setPivotMotor(speed);
     sparkPIDController.setReference(targetSetpoint, ControlType.kPosition);
     

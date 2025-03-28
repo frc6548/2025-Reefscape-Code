@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.7545424940579564,
-        "y": 0.9777691667730267
+        "x": 2.0644870391489314,
+        "y": 1.3851452450453539
       },
       "isLocked": false,
       "linkedName": "Right Human Player"
     },
     {
       "anchor": {
-        "x": 3.9685726552371916,
-        "y": 2.777558200058678
+        "x": 3.695676864876379,
+        "y": 2.968865182209122
       },
       "prevControl": {
-        "x": 3.7050777796174525,
-        "y": 2.5126210377691263
+        "x": 3.497759998465787,
+        "y": 2.743494214274705
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "End Coral 3-R"
+      "linkedName": "End Coral 5 - R"
     }
   ],
   "rotationTargets": [],

@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.0644870391489314,
-        "y": 1.3851452450453539
+        "x": 1.4319551282105865,
+        "y": 1.6203205128209959
       },
       "isLocked": false,
       "linkedName": "Right Human Player"
     },
     {
       "anchor": {
-        "x": 3.695676864876379,
-        "y": 2.968865182209122
+        "x": 3.18,
+        "y": 3.86
       },
       "prevControl": {
-        "x": 3.497759998465787,
-        "y": 2.743494214274705
+        "x": 1.5331646330354596,
+        "y": 3.6741676172284263
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 59.99999999999999
+    "rotation": 0.0
   },
   "reversed": false,
   "folder": "Right Coral",

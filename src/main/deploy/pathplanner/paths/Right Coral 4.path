@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.99330665003334,
-        "y": 2.817901573397064
+        "x": 3.9852007950588675,
+        "y": 2.8032992200356444
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.99330665003334,
-        "y": 1.817901573397064
+        "x": 3.640131336599809,
+        "y": 2.5350333811283363
       },
       "isLocked": false,
-      "linkedName": "End Coral 2-R"
+      "linkedName": "End Coral 3-R"
     },
     {
       "anchor": {
-        "x": 1.5,
+        "x": 1.5038602941176469,
         "y": 0.75
       },
       "prevControl": {
-        "x": 2.491544117647059,
-        "y": 1.3076286764755514
+        "x": 2.0656102941162042,
+        "y": 1.2377012632047135
       },
       "nextControl": null,
       "isLocked": false,
@@ -48,7 +48,7 @@
   "folder": "Right Coral",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 119.99999999999999
+    "rotation": 59.99999999999999
   },
   "useDefaultConstraints": true
 }

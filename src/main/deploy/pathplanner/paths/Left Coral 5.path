@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.1256261827974745,
-        "y": 6.674315102729108
+        "x": 2.213295002637511,
+        "y": 6.431788178857743
       },
       "isLocked": false,
       "linkedName": "Left Human Player"
     },
     {
       "anchor": {
-        "x": 3.9422038007504785,
-        "y": 5.213998342026181
+        "x": 3.695676533706049,
+        "y": 5.0660235644684715
       },
       "prevControl": {
-        "x": 3.758451854246973,
-        "y": 5.383513008519004
+        "x": 3.193657920569464,
+        "y": 5.658216503276514
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "End Coral 5"
+      "linkedName": "L end coral 5"
     }
   ],
   "rotationTargets": [],

@@ -9,13 +9,13 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Translation2d;
+import frc.robot.LimelightHelpers.PoseEstimate;
 import edu.wpi.first.math.util.Units;
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private final boolean kUseLimelight = true;
+  private boolean beforeMatch = true;
 
   private final RobotContainer m_robotContainer;
 
@@ -43,15 +43,17 @@ public class Robot extends TimedRobot {
       }
     }
   
-
   @Override
   public void disabledInit() {
   }
 
   @Override
   public void disabledPeriodic() {
-    // Pose2d latestMt1 = LimelightHelpers.getBotPose2d_wpiBlue("limelight");
+    PoseEstimate llMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
     // m_robotContainer.drivetrain.resetPose(new Pose2d(new Translation2d(0, 0), latestMt1.getRotation()));
+    if (llMeasurement != null && llMeasurement.tagCount > 0 && beforeMatch) {
+      m_robotContainer.drivetrain.addVisionMeasurement(llMeasurement.pose, llMeasurement.timestampSeconds);
+    }
   }
 
   @Override
@@ -64,6 +66,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
+    beforeMatch = false;
   }
 
   @Override

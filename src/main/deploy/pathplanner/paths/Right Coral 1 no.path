@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.950588942460214,
-        "y": 2.303369842036648
+        "x": 6.804818442037337,
+        "y": 1.5436466940503062
       },
       "isLocked": false,
       "linkedName": "rstart coral 1"
     },
     {
       "anchor": {
-        "x": 4.99330665003334,
-        "y": 2.817901573397064
+        "x": 5.291783814448609,
+        "y": 2.9865519671700116
       },
       "prevControl": {
-        "x": 6.133873234633899,
-        "y": 2.310215129609743
+        "x": 5.291826923076923,
+        "y": 2.0125
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "End Coral 2-R"
+      "linkedName": "End Coral 1-R"
     }
   ],
   "rotationTargets": [],
