@@ -148,16 +148,13 @@ public class RobotContainer {
             ));
         //CLIMBER OUT + PIN PULL
         // joystick.start().and(joystick.a()).onTrue(new SequentialCommandGroup (
-        //     new PinPIDCommand(ClimberSubsystem, 7.5),
-        //     new WaitCommand(10),
-        //     new ClimberPIDCommand(ClimberSubsystem, 48))); //42.6 = 90 Degrees
-        //CLIMB UP
-        // joystick.start().and(joystick.b()).onTrue(new ClimberPIDCommand(ClimberSubsystem, 10));
+        //     new PinPIDCommand(ClimberSubsystem, 7.5)));
+        // joystick.start().and(joystick.b()).onTrue(new ClimberPIDCommand(ClimberSubsystem, 46));
+
+        // CLIMB UP
         //MANUAL CLIMBER CONTROLS
-        joystick.start().and(joystick.b()).whileTrue(new InstantCommand(() -> ClimberSubsystem.setClimberMotor (.3)));
-        joystick.start().and(joystick.b()).whileFalse(new InstantCommand(() -> ClimberSubsystem.setClimberMotor (0)));
-        joystick.start().and(joystick.a()).whileTrue(new InstantCommand(() -> ClimberSubsystem.setClimberMotor (-.3)));
-        joystick.start().and(joystick.a()).whileFalse(new InstantCommand(() -> ClimberSubsystem.setClimberMotor (0)));
+        // joystick.start().and(joystick.back()).whileTrue(new InstantCommand(() -> ClimberSubsystem.bringCageIn(-.3)));
+        // joystick.start().and(joystick.back()).whileFalse(new InstantCommand(() -> ClimberSubsystem.bringCageIn(0)));
         // CTRE SysID Tests
         // Note that each routine should be run exactly once in a single log. If run each more than once, test fails
         // joystick.back().and(joystick.y()).whileTrue(drivetrain.sysIdDynamic(Direction.kForward));

@@ -32,7 +32,12 @@ public class Climber extends SubsystemBase{
 }
 public void setClimberMotor(double speed) {
     LeftClimberMotor.set(speed);
-    RightClimberMotor.set(-speed);
+    // RightClimberMotor.set(speed);
+}
+
+public void bringCageIn(double speed) {
+    LeftClimberMotor.set(0.1*speed);
+    RightClimberMotor.set(speed);
 }
 
 public void setPinMotor(double speed) {

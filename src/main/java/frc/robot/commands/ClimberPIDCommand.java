@@ -20,7 +20,6 @@ public class ClimberPIDCommand extends Command {
       this.climberSubsystem = climberSubsystem;
       this.pidController = new PIDController(kP, kI, kD);
       this.feedforward = new ArmFeedforward(kS, kG, kV);
-      addRequirements(climberSubsystem);
       pidController.setSetpoint(setpoint);
     }
 
@@ -38,9 +37,21 @@ public class ClimberPIDCommand extends Command {
     climberSubsystem.setClimberMotor(speed);
   }
 
+  public boolean isAtPosition() {
+    double error = climberSubsystem.getClimberEncoder1() - pidController.getSetpoint();
+    return (Math.abs(error) < .4);
+  }
+
   @Override
   public void end(boolean interrupted) {
     climberSubsystem.setClimberMotor(0);
     System.out.println("ClimberPIDCommand ended!");
   }
+
+    @Override
+    public boolean isFinished() {
+        return isAtPosition(); 
+    }
+
+
 }

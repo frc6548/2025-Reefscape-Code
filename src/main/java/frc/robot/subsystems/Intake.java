@@ -27,7 +27,6 @@ public class Intake extends SubsystemBase{
     public double targetSetpoint;
 
     SparkMaxConfig pivotConfig;
-
     SparkClosedLoopController sparkPIDController; 
     
     // private final PIDController pidController;
@@ -35,28 +34,15 @@ public class Intake extends SubsystemBase{
     private static double kP = .055; //.6 
     private static double kI = 0.0;
     private static double kD = 0.0;
-    // private static double kS = 0.0;
-    // private static double kG = 0.025; //.07
-    // private static double kV = 0.0;
     public double positionalTolerance = 0.2; //if the encoder is less than this distance (1 revolution) it is considered at the setpoint. this is used by the intake commands.
 
 
     public Intake() {
-      // this.pidController = new PIDController(kP, kI, kD);
-      // this.feedforward = new ArmFeedforward(kS, kG, kV);
-
-      //this.pidController.setTolerance(positionalTolerance);
-
       pivotConfig = new SparkMaxConfig();
-
       sparkPIDController = PivotMotor.getClosedLoopController();
-
       pivotConfig.idleMode(IdleMode.kBrake).voltageCompensation(12).smartCurrentLimit(30,35);
-
       this.PivotMotor.configure(pivotConfig, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
-
       pivotConfig.closedLoop.feedbackSensor(FeedbackSensor.kPrimaryEncoder).pid(kP, kI, kD);
-
       this.resetPivotEncoder();
     }
     public Command setPivotSetpoint(double setpoint) {
@@ -64,14 +50,7 @@ public class Intake extends SubsystemBase{
   }
 
   public void executePid() {
-    //if (pidController.getSetpoint() != targetSetpoint)
-    //pidController.setSetpoint(targetSetpoint);
-    //double speed = pidController.calculate(getPivotEncoder());
-    //+ feedforward.calculate(0, pidController.getSetpoint());
-    //MathUtil.inputModulus(speed, speed, speed);
-    //setPivotMotor(speed);
     sparkPIDController.setReference(targetSetpoint, ControlType.kPosition);
-    
 }
 
      @Override
