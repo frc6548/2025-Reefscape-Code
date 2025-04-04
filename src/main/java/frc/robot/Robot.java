@@ -30,7 +30,7 @@ public class Robot extends TimedRobot {
       // if (Math.random() > .95) {
       //  System.out.println("headingDeg: " + headingDeg);
       // }
-      if (kUseLimelight) {
+      if (kUseLimelight && !DriverStation.isTeleop()) {
         var driveState = m_robotContainer.drivetrain.getState();
         double headingDeg = driveState.Pose.getRotation().getDegrees();
         double omegaRps = Units.radiansToRotations(driveState.Speeds.omegaRadiansPerSecond);
