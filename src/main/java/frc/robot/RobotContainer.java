@@ -14,15 +14,19 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.commands.ClimberInPIDCommand;
 import frc.robot.commands.ClimberPIDCommand;
 import frc.robot.commands.ElevatorPIDCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.IntakeCommandV2;
 import frc.robot.commands.IntakePivotPIDCommand;
 import frc.robot.commands.OuttakeCommand;
+import frc.robot.commands.OuttakeCommandV2;
 import frc.robot.commands.PinPIDCommand;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
@@ -30,6 +34,7 @@ import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LEDs;
 import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.ClimberIn;
 
 public class RobotContainer {
     private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
@@ -52,6 +57,8 @@ public class RobotContainer {
     public final Elevator elevatorSubsystem = new Elevator();
     public final LEDs ledSubsystem = new LEDs();
     public final Climber ClimberSubsystem = new Climber();
+    public final ClimberIn ClimberSubsystem2 = new ClimberIn();
+
 
     //Creates instances of our Commands
     public final IntakeCommand intakeCommand = new IntakeCommand(intakeSubsystem, ledSubsystem);
@@ -71,6 +78,7 @@ public class RobotContainer {
         NamedCommands.registerCommand("intake", new IntakeCommand(intakeSubsystem, ledSubsystem));
         NamedCommands.registerCommand("elevatorIntake", new ElevatorPIDCommand(elevatorSubsystem,1.75+1.285715222358704));
         NamedCommands.registerCommand("wristIntake", new IntakePivotPIDCommand(intakeSubsystem,-.5-16.35712432861328+0.5));
+        NamedCommands.registerCommand("elevatorL3", new ElevatorPIDCommand(elevatorSubsystem,13.6+1.285715222358704));
 
         // NamedCommands.registerCommand("elevatorDown", new AutonomousElevatorCommand(elevatorSubsystem, 2)); 
         autoChooser = AutoBuilder.buildAutoChooser("Right Coral");
@@ -139,6 +147,10 @@ public class RobotContainer {
         joystick.leftTrigger().onTrue(new IntakePivotPIDCommand(intakeSubsystem,7+pivotSetpointOffset));
         joystick.leftTrigger().onTrue(new OuttakeCommand(intakeSubsystem, ledSubsystem, 30));
         joystick.leftTrigger().onTrue(new InstantCommand(() -> SetDriveTrainSpeed(3)));
+        //L1
+        joystick.povLeft().onTrue(new IntakePivotPIDCommand(intakeSubsystem,-1.75)); 
+        joystick.povLeft().onTrue(new ElevatorPIDCommand(elevatorSubsystem,0+elevatorSetpointOffset));
+        joystick.a().onTrue(new OuttakeCommandV2(intakeSubsystem, ledSubsystem, -11));
         //PROCESS
         joystick.x().onTrue(Commands.parallel(
             new ElevatorPIDCommand(elevatorSubsystem,6+elevatorSetpointOffset),
@@ -150,6 +162,17 @@ public class RobotContainer {
         // joystick.start().and(joystick.a()).onTrue(new SequentialCommandGroup (
         //     new PinPIDCommand(ClimberSubsystem, 7.5)));
         // joystick.start().and(joystick.b()).onTrue(new ClimberPIDCommand(ClimberSubsystem, 46));
+
+        // NEW CLIMBER CODE
+        joystick.start().and(joystick.a()).onTrue(new SequentialCommandGroup(
+        new ParallelDeadlineGroup(new WaitCommand(.25),new PinPIDCommand(ClimberSubsystem, 7.5)),
+        new ParallelDeadlineGroup(new WaitCommand(.5), new ClimberInPIDCommand(ClimberSubsystem2, -100)),
+        new ParallelDeadlineGroup(new WaitCommand(1), new ClimberInPIDCommand(ClimberSubsystem2, 0))));
+
+
+        joystick.start().and(joystick.b()).onTrue(new SequentialCommandGroup(
+            new ClimberInPIDCommand(ClimberSubsystem2, -325))); //-300
+
 
         // CLIMB UP
         //MANUAL CLIMBER CONTROLS
